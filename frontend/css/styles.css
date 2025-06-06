@@ -11,9 +11,10 @@ body {
 
 .project-card {
     background: white;
-    padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 15px;
+    margin-bottom: 10px;
 }
 .modal {
     display: none;
@@ -36,9 +37,15 @@ body {
     max-width: 600px;
 }
 
-.close-button {
+/*.close-button {
     float: right;
     font-size: 20px;
+    cursor: pointer;
+}*/
+
+.close-button {
+    float: right;
+    font-size: 1.5rem;
     cursor: pointer;
 }
 
@@ -66,7 +73,7 @@ input, textarea, select {
     box-sizing: border-box;
 }
 
-button {
+/*button {
     padding: 10px 20px;
     background-color: #0077cc;
     color: white;
@@ -74,9 +81,22 @@ button {
     border-radius: 6px;
     font-size: 16px;
     cursor: pointer;
+}*/
+
+button, .button-yourProposals {
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 5px;
+    text-decoration: none;
+    display: inline-block;
 }
 
-button:hover {
+
+button:hover, .button-yourProposals:hover {
     background-color: #005fa3;
 }
 

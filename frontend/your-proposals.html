@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tus Proyectos</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <h1>Tus Proyectos</h1>
+
+    <label for="user-select">Seleccionar usuario:</label>
+    <select id="user-select">
+        <option value="">-- Seleccionar --</option>
+    </select>
+
+    <button onclick="toggleFiltros()">Mostrar/Ocultar Filtros</button>
+    <div id="filtros" style="display: none;">
+        <form id="filter-form">
+            <input type="text" name="title" placeholder="Titulo">
+            <select name="status" id="status-select">
+                <option value="">Todos los estados</option>
+            </select>
+            <input type="number" name="applicant" placeholder="ID del solicitante">
+            <input type="number" name="approvalUser" placeholder="ID del aprobador">
+            <button type="submit">Filtrar</button>
+        </form>
+    </div>
+
+    <div id="projects-container"></div>
+
+    <!-- Modal de detalle -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="cerrarModal()">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="./js/your-proposals.js"></script>
+</body>
+</html>
