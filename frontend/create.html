@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Proyecto</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <h1>Crear nuevo proyecto</h1>
+    <form id="project-form">
+        <input type="text" id="title" placeholder="Titulo" required />
+        <textarea id="description" placeholder="Descripcion (opcional)"></textarea>
+        <input type="number" id="amount" placeholder="Costo estimado" step="0.01" required />
+        <input type="number" id="duration" placeholder="Duracion (dias)" required />
+        <select id="area" required></select>
+        <select id="user" required></select>
+        <select id="type" required></select>
+
+        <button type="submit">Crear Proyecto</button>
+    </form>
+    <p id="form-message"></p>
+
+    <button onclick="window.location.href='index.html'">Volver al listado</button>
+
+    <script src="./js/create.js"></script>
+</body>
+</html>
