@@ -1,7 +1,24 @@
+﻿
+.header-top-back {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.header-top {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
 body {
     font-family: Arial, sans-serif;
     padding: 20px;
     background-color: #f4f4f4;
+}
+
+h1 {
+    color: #333;
 }
 
 #projects-container {
@@ -37,21 +54,6 @@ body {
     max-width: 600px;
 }
 
-/*.close-button {
-    float: right;
-    font-size: 20px;
-    cursor: pointer;
-}*/
-
-.close-button {
-    float: right;
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-h1 {
-    color: #333;
-}
 
 form {
     max-width: 600px;
@@ -73,17 +75,20 @@ input, textarea, select {
     box-sizing: border-box;
 }
 
-/*button {
-    padding: 10px 20px;
-    background-color: #0077cc;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-}*/
+#form-message {
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+    color: green;
+}
 
-button, .button-yourProposals {
+.close-button {
+    float: right;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+button, .btn{
     padding: 10px 15px;
     background-color: #007BFF;
     color: white;
@@ -93,16 +98,11 @@ button, .button-yourProposals {
     margin: 5px;
     text-decoration: none;
     display: inline-block;
+    font-size: 14px;
+    box-sizing: border-box;
 }
 
-
-button:hover, .button-yourProposals:hover {
+button:hover, .btn:hover{
     background-color: #005fa3;
 }
 
-#form-message {
-    text-align: center;
-    margin-top: 20px;
-    font-weight: bold;
-    color: green;
-}

@@ -23,7 +23,7 @@ function renderProjects(projects) {
             <p><strong>Estado:</strong> ${project.status}</p>
             <p><strong>Area:</strong> ${project.area}</p>
             <p><strong>Tipo:</strong> ${project.type}</p>
-            <button onclick="verDetalle('${project.id}')">Ver informacion detallada</button>
+            <button class= "btn" onclick="verDetalle('${project.id}')">Ver informacion detallada</button>
         `;
         container.appendChild(div);
     });

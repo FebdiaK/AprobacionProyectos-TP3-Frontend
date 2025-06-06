@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Tus Proyectos</title>
-    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/stylesBase.css"> 
+    <link rel="stylesheet" href="./css/your-proposal.css">
 </head>
 <body>
-    <h1>Tus Proyectos</h1>
+    <div class="header-top-back">
+        <a href="index.html" class="btn">Volver al listado</a>
+    </div>
 
+   
+    <h1>Tus Proyectos</h1>
     <label for="user-select">Seleccionar usuario:</label>
     <select id="user-select">
         <option value="">-- Seleccionar --</option>
@@ -20,8 +25,6 @@
             <select name="status" id="status-select">
                 <option value="">Todos los estados</option>
             </select>
-            <input type="number" name="applicant" placeholder="ID del solicitante">
-            <input type="number" name="approvalUser" placeholder="ID del aprobador">
             <button type="submit">Filtrar</button>
         </form>
     </div>

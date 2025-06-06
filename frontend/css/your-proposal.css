@@ -1,0 +1,22 @@
+
+.collapsible-section {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 1em;
+    padding: 0.5em;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: black;
+    opacity: 1;
+}

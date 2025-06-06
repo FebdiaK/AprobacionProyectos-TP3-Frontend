@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Crear Proyecto</title>
-    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/stylesBase.css">
 </head>
 <body>
+    <div class="header-top-back">
+        <button onclick="window.location.href='index.html'">Volver al listado</button>
+    </div>
+    
     <h1>Crear nuevo proyecto</h1>
     <form id="project-form">
         <input type="text" id="title" placeholder="Titulo" required />
@@ -19,8 +23,6 @@
         <button type="submit">Crear Proyecto</button>
     </form>
     <p id="form-message"></p>
-
-    <button onclick="window.location.href='index.html'">Volver al listado</button>
 
     <script src="./js/create.js"></script>
 </body>
