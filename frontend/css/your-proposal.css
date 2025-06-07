@@ -13,10 +13,16 @@
 }
 
 .toggle-btn {
-    background: none;
-    border: none;
+    display: inline-block;
+    visibility: visible;
+    opacity: 1;
+    position: relative;
+    z-index: 10;
+    background-color: #ccc;
+    border: 1px solid #999;
+    padding: 4px 8px;
+    margin-left: 1rem;
     font-size: 1.5em;
     cursor: pointer;
     color: black;
-    opacity: 1;
 }

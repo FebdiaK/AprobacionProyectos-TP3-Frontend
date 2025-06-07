@@ -11,7 +11,7 @@
         <a href="index.html" class="btn">Volver al listado</a>
     </div>
 
-   
+
     <h1>Tus Proyectos</h1>
     <label for="user-select">Seleccionar usuario:</label>
     <select id="user-select">
@@ -36,6 +36,26 @@
         <div class="modal-content">
             <span class="close-button" onclick="cerrarModal()">&times;</span>
             <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <div id="modal-decision" class="modal">
+        <div class="modal-content">
+            <span class=".close" onclick="cerrarModalDecision()">&times;</span>
+            <h2>Decidir paso de aprobación</h2>
+            <form id="decision-form">
+                <input type="hidden" id="stepId" name="stepId" />
+                <label>Estado:</label><br />
+                <select id="status" name="status" required>
+                    <option value="">Seleccione</option>
+                    <option value="2">Aprobado</option>
+                    <option value="3">Rechazado</option>
+                    <option value="4">Observado</option>
+                </select><br /><br />
+                <label>Observación:</label><br />
+                <textarea id="observation" name="observation" rows="4" cols="50"></textarea><br /><br />
+                <button type="submit">Confirmar decisión</button>
+            </form>
         </div>
     </div>
 

@@ -1,4 +1,5 @@
-﻿const API_BASE = "https://localhost:7017/api";
+﻿
+const API_BASE = "https://localhost:7017/api";
 
 let selectedUserId = null;
 
@@ -116,6 +117,7 @@ async function fetchStatuses() {
 
 
     function renderSeccion(titulo, proyectos) {
+
         const section = document.createElement('section');
         section.classList.add('collapsible-section');
 
@@ -169,13 +171,22 @@ async function fetchStatuses() {
 
 
 
-// Modal detalle
+// Modal detalle|
 function verDetalle(id) {
+    selectedUserId = parseInt(document.getElementById('user-select').value);
+    selectedProjectId = id; // Guardar el ID del proyecto seleccionado
     fetch(`${API_BASE}/project/${id}`)
         .then(response => response.json())
         .then(data => {
             const modal = document.getElementById('modal');
             const modalBody = document.getElementById('modal-body');
+
+            let primerPendiente = data.steps.find(s => s.status.name.toLowerCase() === "Pending");
+            let puedeDecidir = primerPendiente && primerPendiente.approverUser?.id == selectedUserId;
+
+            console.log("Paso pendiente:", primerPendiente);
+            console.log("Puede decidir:", puedeDecidir);
+
             modalBody.innerHTML = `
                 <h2>${data.title}</h2>
                 <p><strong>ID:</strong> ${data.id}</p>
@@ -188,18 +199,21 @@ function verDetalle(id) {
                 <p><strong>Usuario creador:</strong><p>
                 <p> ${data.user.name} (${data.user.email})<p>
                 <p>Rol: ${data.user.role.name}</p>
+
                 <h3>Flujo de aprobacion</h3>
-                ${data.steps.map(step => `
+                ${data.steps.map(step => {
+                    const esPasoActual = step.id === primerPendiente?.id && puedeDecidir;
+                    return `
                     <div class="step">
                         <p><strong>Orden:</strong> ${step.stepOrder}</p>
                         <p><strong>Estado:</strong> ${step.status.name}</p>
                         <p><strong>Observaciones:</strong> ${step.observations || 'Pendiente'}</p>
-                        <p><strong>Fecha de decision:</strong> ${step.decisionDate || 'Pendiente'}</p>
+                        <p><strong>Fecha de decisión:</strong> ${step.decisionDate || 'Pendiente'}</p>
                         <p><strong>Rol aprobador:</strong> ${step.approverRole.name}</p>
-                        <p><strong>Usuario aprobador:</strong> ${step.approverUser?.name || 'No asignado todavia'} (${step.approverUser?.email || ' - '})</p>
-                        <hr>
+                        <p><strong>Usuario aprobador:</strong> ${step.approverUser?.name || 'No asignado'} (${step.approverUser?.email || ' - '})</p>
+                        <button onclick="abrirModalDecision(${step.id})">DECIDIR</button> 
                     </div>
-                `).join('')}`;
+                `}).join('')}`;
 
             modal.style.display = 'block';
         });
@@ -223,3 +237,56 @@ function toggleSection(button) {
     button.textContent = isVisible ? '+' : '−';
 }
 
+function abrirModalDecision(stepId) {
+    document.getElementById('stepId').value = stepId;
+    document.getElementById('status').value = '';
+    document.getElementById('observation').value = '';
+    document.getElementById('modal-decision').style.display = 'block';
+}
+
+function cerrarModalDecision() {
+    document.getElementById('modal-decision').style.display = 'none';
+}
+
+// Enviar decisión
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('decision-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const stepId = document.getElementById('stepId').value;
+        const statusId = document.getElementById('status').value;
+        const observation = document.getElementById('observation').value;
+
+        if (!statusId) {
+            alert("Debe seleccionar un estado.");
+            return;
+        }
+
+        try {
+            const res = await fetch(`${API_BASE}/project/${selectedProjectId}/decision`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id: parseInt(stepId),
+                    user: parseInt(selectedUserId),
+                    status: parseInt(statusId),
+                    observation: observation
+                })
+
+            });
+
+            if (!res.ok) {
+                const error = await res.json();
+                alert("Error: " + (error.message || "al decidir."));
+                throw new Error(error.message || "Error al decidir.");
+            }
+
+            alert('Decisión enviada correctamente.');
+            cerrarModalDecision();
+            cerrarModal();
+            verDetalle(selectedProjectId); // recargar detalle
+        } catch (err) {
+            console.error(err);
+            alert("Error al decidir.");
+        }
+    });
+});
