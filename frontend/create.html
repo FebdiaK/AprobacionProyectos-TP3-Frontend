@@ -16,16 +16,16 @@
         <textarea id="description" placeholder="Descripcion (opcional)"></textarea>
         <input type="number" id="amount" placeholder="Costo estimado" step="0.01" required />
         <input type="number" id="duration" placeholder="Duracion (dias)" required />
-        <label for="user"> Usuario creador:</label>
-        <select id="user" required>
+        <label for="user-select"> Usuario creador:</label>
+        <select id="user-select" required>
             <option value="">-- Seleccionar --</option>
         </select>
-        <label for="area"> Area del proyecto:</label>
-        <select id="area" required>
+        <label for="area-select"> Area del proyecto:</label>
+        <select id="area-select" required>
             <option value="">-- Seleccionar --</option>
         </select>
-        <label for="type"> Tipo de proyecto:</label>
-        <select id="type" required>
+        <label for="type-select"> Tipo de proyecto:</label>
+        <select id="type-select" required>
             <option value="">-- Seleccionar --</option>
         </select>
 
@@ -33,6 +33,6 @@
     </form>
     <p id="form-message"></p>
 
-    <script  type="module" src="./js/create.js"></script>
+    <script  type="module" src="./js/pages/create.js"></script>
 </body>
 </html>
