@@ -7,19 +7,21 @@
 </head>
 <body>
     <div class="header-top">
-        <a href="your-proposals.html" class="btn">Ver tus proyectos</a>
+        <a href="your-projects.html" class="btn">Ver tus proyectos</a>
         <button onclick="window.location.href='create.html'">Crear nuevo proyecto</button>
     </div>
     <h1>Listado de Proyectos</h1>
+
     <div id="projects-container"></div>
+    
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close-button" onclick="cerrarModal()">&times;</span>
             <div id="modal-body">
-                <!-- Aquí se carga el detalle del proyecto -->
+                <!-- acá va el detalle del proyecto -->
             </div>
         </div>
     </div>
-    <script src="./js/script.js"></script>
+    <script type="module" src="./js/listIndex.js"></script>
 </body>
 </html>

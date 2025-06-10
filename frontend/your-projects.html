@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <title>Tus Proyectos</title>
     <link rel="stylesheet" href="./css/stylesBase.css"> 
-    <link rel="stylesheet" href="./css/your-proposal.css">
+    <link rel="stylesheet" href="./css/your-projects.css">
 </head>
 <body>
     <div class="header-top-back">
         <a href="index.html" class="btn">Volver al listado</a>
     </div>
-
-
     <h1>Tus Proyectos</h1>
     <label for="user-select">Seleccionar usuario:</label>
     <select id="user-select">
@@ -29,6 +27,7 @@
         </form>
     </div>
 
+    <!-- donde se cargan los proyectos -->
     <div id="projects-container"></div>
 
     <!-- Modal de detalle -->
@@ -39,6 +38,7 @@
         </div>
     </div>
 
+    <!-- Modal para decidir -->
     <div id="modal-decision" class="modal">
         <div class="modal-content">
             <span class=".close" onclick="cerrarModalDecision()">&times;</span>
@@ -59,6 +59,7 @@
         </div>
     </div>
 
-    <script src="./js/your-proposals.js"></script>
+    <script type="module" src="./js/your-projects.js"></script>
+
 </body>
 </html>
