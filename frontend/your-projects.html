@@ -16,7 +16,7 @@
         <option value="">-- Seleccionar --</option>
     </select>
 
-    <button onclick="toggleFiltros()">Mostrar/Ocultar Filtros</button>
+    <button id ="toggle-filtros">Mostrar/Ocultar Filtros</button>
     <div id="filtros" style="display: none;">
         <form id="filter-form">
             <input type="text" name="title" placeholder="Titulo">
@@ -33,7 +33,7 @@
     <!-- Modal de detalle -->
     <div id="modal" class="modal">
         <div class="modal-content">
-            <span class="close-button" onclick="cerrarModal()">&times;</span>
+            <span class="close-button">&times;</span>
             <div id="modal-body"></div>
         </div>
     </div>
@@ -41,10 +41,12 @@
     <!-- Modal para decidir -->
     <div id="modal-decision" class="modal">
         <div class="modal-content">
-            <span class=".close" onclick="cerrarModalDecision()">&times;</span>
+            <span class="close-button-decision">&times;</span>
             <h2>Decidir paso de aprobación</h2>
             <form id="decision-form">
+
                 <input type="hidden" id="stepId" name="stepId" />
+
                 <label>Estado:</label><br />
                 <select id="status" name="status" required>
                     <option value="">Seleccione</option>
@@ -52,14 +54,15 @@
                     <option value="3">Rechazado</option>
                     <option value="4">Observado</option>
                 </select><br /><br />
+                
                 <label>Observación:</label><br />
                 <textarea id="observation" name="observation" rows="4" cols="50"></textarea><br /><br />
+                
                 <button type="submit">Confirmar decisión</button>
             </form>
         </div>
     </div>
 
-    <script type="module" src="../js/pages/your-projects.js"></script>
-
+    <script type="module" src="./js/pages/your-projects.js"></script>
 </body>
 </html>

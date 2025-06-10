@@ -1,10 +1,9 @@
 
-
 //Criterio 1: Interfaz web donde se muestran los proyectos
 
 import { getProjects } from "../api/api.js";
 import { renderProjects } from "../ui/ui.js";
-
+import { closeModal } from "../ui/modal.js";
 
 window.onload = async () => {
     try {
@@ -14,7 +13,7 @@ window.onload = async () => {
             console.error("No se encontro el contenedor de proyectos.");
             return;
         }
-
+        
         const projects = await getProjects();
 
         if (projects.length === 0) {
@@ -23,6 +22,10 @@ window.onload = async () => {
         }
 
         renderProjects(projects, container.id, null);
+
+        const closeButton = document.querySelector('.close-button'); 
+        if (closeButton) { closeButton.addEventListener('click', closeModal); }
+
 
     } catch (error) {
         console.error("Error al obtener proyectos:", error);

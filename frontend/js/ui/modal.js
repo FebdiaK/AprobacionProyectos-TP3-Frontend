@@ -1,5 +1,4 @@
 
-
 export const openModal = () => {
     document.getElementById("modal").style.display = "block";
 };
@@ -13,7 +12,7 @@ export function abrirModalDecision(stepId) {
     document.getElementById("observation").value = "";
     document.getElementById("modal-decision").style.display = "block";
 }
-export function cerrarModalDecision() {
+export const cerrarModalDecision = () => {
     document.getElementById("modal-decision").style.display = "none";
 }
 
@@ -36,7 +35,6 @@ export const fillModal = (project, selectedUser) => {
                 <p><strong>Rol aprobador:</strong> ${step.approverRole.name}</p>
                 <p><strong>Usuario aprobador:</strong> ${step.approverUser?.name || 'No asignado'} (${step.approverUser?.email || '-'})</p>
                 ${esActual ? `<button onclick="window.abrirModalDecision(${step.id})">Decidir</button>` : ""}
-                <hr>
             </div>
         `;
     }).join("");
@@ -50,9 +48,9 @@ export const fillModal = (project, selectedUser) => {
         <p><strong>Estado:</strong> ${project.status.name}</p>
         <p><strong>Duracion estimada:</strong> ${project.duration} dias</p>
         <p><strong>Costo estimado:</strong> $${project.amount}</p>
-        <p><strong>Usuario creador: </strong> <br>${project.user.name} (${project.user.email})</p><br>
-        <p>Rol: ${project.user.role.name}</p>
-        <h2>Flujo de aprobación</h2>
+        <p><strong>Usuario creador: </strong> ${project.user.name} (${project.user.email})<p>
+        <p><strong>Rol:</strong> ${project.user.role.name}</p><br>
+        <h2>Flujo de aprobacion</h2>
         ${stepsHtml || "<p>No hay pasos de aprobación definidos.</p>"}
     `;
 };

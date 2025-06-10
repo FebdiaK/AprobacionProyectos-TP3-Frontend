@@ -1,9 +1,9 @@
 ﻿
 import { getUsers, getStatuses, sendDecision } from '../api/api.js';
-import { renderOptionList, clearContainer } from '../ui/ui.js';
+import { renderOptionList, clearContainer, toggleFiltros } from '../ui/ui.js';
 import { abrirModalDecision, cerrarModalDecision, closeModal } from '../ui/modal.js';
 import { verDetalle, selectedProjectId } from '../ui/detail.js';
-import { loadProjects } from '../ui//list.js';
+import { loadProjects } from '../ui/list.js';
 window.abrirModalDecision = abrirModalDecision;
 
 const userMap = new Map();
@@ -25,6 +25,13 @@ async function init() {
     document.getElementById('user-select').addEventListener('change', onUserChange);
     document.getElementById('filter-form').addEventListener('submit', onFilterSubmit);
     document.getElementById('decision-form').addEventListener('submit', onDecisionSubmit);
+    document.getElementById("toggle-filtros").addEventListener("click", toggleFiltros);
+
+    const closeButton = document.querySelector('.close-button');
+    if (closeButton) { closeButton.addEventListener('click', closeModal); }
+
+    const closeButtonDecision = document.querySelector('.close-button-decision');
+    if (closeButtonDecision) { closeButtonDecision.addEventListener('click', cerrarModalDecision); }
 }
 
 // === EVENTOS ===
@@ -35,7 +42,7 @@ async function onUserChange() {
     clearContainer('projects-container');
 
     if (selectedUser) {
-        await loadProjects(selectedUser);
+        await loadProjects(selectedUser, {});
     } else {
         document.getElementById('projects-container').innerHTML = '<p>Selecciona un usuario para ver sus proyectos.</p>';
     }
@@ -63,20 +70,19 @@ async function onDecisionSubmit(e) {
     if (!statusId) return alert("Debe seleccionar un estado.");
 
     try {
-            await sendDecision({
-                projectId: selectedProjectId,
-                stepId,
-                userId: parseInt(selectedUser.id),
-                statusId,
-                observation
-        });
-
+        await sendDecision(
+            selectedProjectId,
+            stepId,
+            parseInt(selectedUser.id),
+            statusId,
+            observation
+        );
         alert('Decisión enviada correctamente.');
         cerrarModalDecision();
-        closeModal();
-        verDetalle(selectedProjectId, selectedUser); // recargar detalle
+        //closeModal();
+        verDetalle(selectedUser, selectedProjectId); // recargar detalle
 
-    } catch (err) {
+    }catch (err) {
         console.error(err);
         alert("Error al decidir: " + err.message);
     }

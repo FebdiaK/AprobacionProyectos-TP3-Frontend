@@ -1,6 +1,6 @@
 
-import { getProjectDetailsById } from '../api/api.js';
-import { openModal, fillModal } from '../ui/modal.js';
+import { getProjectDetailsById } from '.././api/api.js';
+import { openModal, fillModal } from './modal.js';
 
 export let selectedProjectId = null;
 

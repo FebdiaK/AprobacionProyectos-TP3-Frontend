@@ -4,11 +4,12 @@ import { renderAllSections } from './ui.js';
 import { clasifyProjects } from '../utils/helpers.js'; // si querés separar esa lógica
 
 export async function loadProjects(selectedUser, filtros = {}) {
+
     // Proyectos creados
-    const proyectosCreados = await getProjectsQuery({ ...filtros, applicant: selectedUser.userId });
+    const proyectosCreados = await getProjectsQuery({ ...filtros, applicant: selectedUser.id });
 
     // Proyectos donde participa
-    const proyectosParticipa = await getProjectsQuery({ ...filtros, approvalUser: selectedUser.userId });
+    const proyectosParticipa = await getProjectsQuery({ ...filtros, approvalUser: selectedUser.id });
     const proyectosParticipaFiltrados = proyectosParticipa.filter(p => !proyectosCreados.some(c => c.id === p.id));
 
     const proyectosParticipaDetallados = await Promise.all(

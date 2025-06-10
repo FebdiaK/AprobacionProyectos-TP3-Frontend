@@ -1,8 +1,10 @@
 ﻿
-import { verDetalle } from '../ui/detail.js';
+import { verDetalle } from './detail.js';
 
 export const clearContainer = (id) => {
-    document.getElementById(id).innerHTML = '';
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = '';
+
 };
 export function renderAllSections(selectedUser, creados, puedeDecidir, yaParticipo) {
     clearContainer('projects-container');
@@ -30,17 +32,25 @@ function renderSection(titulo, proyectos, selectedUser) {
 
     const content = document.createElement('div');
     content.className = 'section-content';
-    content.id = 'content';
 
-    renderProjects(proyectos, content.id, selectedUser);
+    const sectionId = titulo.toLowerCase().replace(/\s+/g, '-') + '-content'; // ID unico basado en el titulo
+    content.id = sectionId;
+
 
     section.appendChild(header);
     section.appendChild(content);
     document.getElementById('projects-container').appendChild(section);
+
+    renderProjects(proyectos, content.id, selectedUser);
 }
 
 export const renderProjects = (projects, containerId, selectedUser) => {
+
     const container = document.getElementById(containerId);
+    if (!container) {
+        console.error("No se encontró el contenedor:", containerId);
+        return;
+    }
     clearContainer(containerId);
 
     projects.forEach(project => {
@@ -48,9 +58,9 @@ export const renderProjects = (projects, containerId, selectedUser) => {
         div.className = "project-card";
         div.innerHTML = `
             <h2>${project.title}</h2>
-            <p><strong>Estado:</strong> ${project.status}</p>
-            <p><strong>Area:</strong> ${project.area}</p>
-            <p><strong>Tipo:</strong> ${project.type}</p>
+            <p><strong>Estado:</strong> ${project.status?.name || project.status}</p>
+            <p><strong>Area:</strong> ${project.area?.name || project.area}</p>
+            <p><strong>Tipo:</strong> ${project.type?.name || project.type}</p>
             <button class="btn">Ver informacion detallada</button>
         `;
         div.querySelector("button").addEventListener("click", () => verDetalle(selectedUser, project.id));
@@ -60,7 +70,7 @@ export const renderProjects = (projects, containerId, selectedUser) => {
 
 export const renderOptionList = (selectId, list, labelProp, valueProp) => {
     const select = document.getElementById(selectId);
-    clearContainer(select.id);
+    //clearContainer(select.id);
     
     list.forEach(item => {
         const option = new Option(item[labelProp], item[valueProp]);
@@ -80,4 +90,7 @@ function toggleSection(button) {
     content.style.display = visible ? 'none' : 'block';
     button.textContent = visible ? '+' : '−';
 }
-
+export function toggleFiltros() {
+    const filtros = document.getElementById('filtros');
+    filtros.style.display = filtros.style.display === 'none' ? 'block' : 'none';
+}
