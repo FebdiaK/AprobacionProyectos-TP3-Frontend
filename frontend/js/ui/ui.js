@@ -1,5 +1,6 @@
 ﻿
 import { verDetalle } from './detail.js';
+import { openEditModal } from './modal.js';
 
 export const clearContainer = (id) => {
     const el = document.getElementById(id);
@@ -56,6 +57,7 @@ export const renderProjects = (projects, containerId, selectedUser) => {
     projects.forEach(project => {
         const div = document.createElement("div");
         div.className = "project-card";
+        div.id = `project-card-${project.id}`;
         div.innerHTML = `
             <h2>${project.title}</h2>
             <p><strong>Estado:</strong> ${project.status?.name || project.status}</p>
@@ -65,6 +67,16 @@ export const renderProjects = (projects, containerId, selectedUser) => {
         `;
         div.querySelector("button").addEventListener("click", () => verDetalle(selectedUser, project.id));
         container.appendChild(div);
+
+        if (project.status.id === 4) { // 4 = Observado
+            const editButton = document.createElement("button");
+            editButton.textContent = "Editar";
+            editButton.classList.add("edit-button");
+            editButton.addEventListener("click", () => {
+                openEditModal(project); // funcion a definir
+            });
+            div.appendChild(editButton);
+        }
     });
 };
 

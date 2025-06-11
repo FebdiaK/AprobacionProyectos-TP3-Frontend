@@ -16,7 +16,7 @@
         <option value="">-- Seleccionar --</option>
     </select>
 
-    <button id ="toggle-filtros">Mostrar/Ocultar Filtros</button>
+    <button id="toggle-filtros">Mostrar/Ocultar Filtros</button>
     <div id="filtros" style="display: none;">
         <form id="filter-form">
             <input type="text" name="title" placeholder="Titulo">
@@ -42,6 +42,7 @@
     <div id="modal-decision" class="modal">
         <div class="modal-content">
             <span class="close-button-decision">&times;</span>
+
             <h2>Decidir paso de aprobación</h2>
             <form id="decision-form">
 
@@ -54,14 +55,40 @@
                     <option value="3">Rechazado</option>
                     <option value="4">Observado</option>
                 </select><br /><br />
-                
+
                 <label>Observación:</label><br />
                 <textarea id="observation" name="observation" rows="4" cols="50"></textarea><br /><br />
-                
-                <button type="submit">Confirmar decisión</button>
+
+                <button type="submit">Confirmar decision</button>
             </form>
         </div>
     </div>
+
+    <!-- Modal para editar -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button-edit">&times;</span>
+
+            <h3>Editar Proyecto</h3>
+
+            <form id="edit-form">
+
+                <label for="edit-title">Nuevo titulo:</label>
+                <input type="text" id="edit-title" required />
+
+                <label for="edit-description">Nueva descripcion:</label>
+                <textarea id="edit-description" required></textarea>
+
+                <label for="edit-duration">Nueva duracion:</label>
+                <input type="number" id="edit-duration" required />
+
+                <button type="submit">Guardar Cambios</button>
+                
+            </form>
+            <p id="edit-message"></p>
+        </div>
+    </div>
+
 
     <script type="module" src="./js/pages/your-projects.js"></script>
 </body>

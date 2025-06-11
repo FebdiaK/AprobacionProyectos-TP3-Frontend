@@ -82,3 +82,21 @@ export async function sendDecision(projectId, stepId, userId, statusId, observat
     }
 }
 
+//Criterio 6: Editar un proyecto, solo en estado de observacion 
+export async function sendEdit(projectId, titulo, descripcion, duracion) {
+    const res = await fetch(`${API_BASE}/project/${projectId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            title: titulo,
+            description: descripcion,
+            duration: duracion
+        })
+    });
+
+    if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.message || "Error al editar.");
+    }
+}
+

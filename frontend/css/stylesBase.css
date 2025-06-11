@@ -83,7 +83,7 @@ input, textarea, select {
     color: green;
 }
 
-.close-button, .close-button-decision {
+.close-button, .close-button-decision, .close-button-edit {
     float: right;
     font-size: 1.5rem;
     cursor: pointer;

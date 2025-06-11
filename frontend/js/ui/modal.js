@@ -1,4 +1,6 @@
 
+export let projectToEdit = null;
+
 export const openModal = () => {
     document.getElementById("modal").style.display = "block";
 };
@@ -14,6 +16,20 @@ export function abrirModalDecision(stepId) {
 }
 export const cerrarModalDecision = () => {
     document.getElementById("modal-decision").style.display = "none";
+}
+
+export function openEditModal(project) {
+
+    projectToEdit = project;
+
+    document.getElementById("edit-title").value = project.title;
+    document.getElementById("edit-description").value = project.description;
+    document.getElementById("edit-duration").value = project.duration;
+    document.getElementById("edit-message").textContent = "";
+    document.getElementById("edit-modal").style.display = "block";
+}
+export function closeEditModal() {
+    document.getElementById("edit-modal").style.display = "none";
 }
 
 export const fillModal = (project, selectedUser) => {
