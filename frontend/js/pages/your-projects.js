@@ -47,9 +47,13 @@ async function onUserChange() {
 
     if (selectedUser) {
         await loadProjects(selectedUser, {});
+        document.getElementById("user-message").innerHTML = '';
+        addSingleCardClass();
     } else {
-        document.getElementById('projects-container').innerHTML = '<p>Selecciona un usuario para ver sus proyectos.</p>';
+        document.getElementById('user-message').innerHTML = '<p>Selecciona un usuario para ver sus proyectos.</p>';
     }
+
+    
 }
 
 //Criterio 4: El usuario puede realizar búsquedas de sus proyectos además realizar búsquedas y filtrarlos.
@@ -61,6 +65,7 @@ async function onFilterSubmit(e) {
     const filtros = Object.fromEntries([...formData.entries()].filter(([_, v]) => v.trim() !== ''));
 
     await loadProjects(selectedUser, filtros);
+    addSingleCardClass();
 }
 
 //Criterio 5: El usuario puede tomar una decisión sobre la aprobación de un proyecto
@@ -125,6 +130,18 @@ async function onEditSubmit(e) {
         document.getElementById("edit-message").textContent = "Error al editar: " + err.message;
     }
 };
+
+function addSingleCardClass() {
+    const sections = document.querySelectorAll('.section-content');
+    sections.forEach(section => {
+        const cards = section.querySelectorAll('.project-card');
+        cards.forEach(card => card.classList.remove('single-card')); // limpiar clases anteriores
+        if (cards.length === 1) {
+            cards[0].classList.add('single-card');
+        }
+    });
+}
+
 
 
 

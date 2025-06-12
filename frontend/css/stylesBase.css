@@ -49,10 +49,12 @@ div {
 }
 
 body {
+    height: 100%;
     font-family: Arial, sans-serif;
     margin: 0;
     background-color: #f4f4f4;
 }
+
 
 .title-page {
     text-align: center;
@@ -84,7 +86,6 @@ body {
     max-width: 1200px;
     margin: 0 auto 2rem auto;
     place-content: center;
-    
 }
 
 .project-card {
@@ -181,12 +182,21 @@ body {
 }
 
 form {
+    display: flex;
+    flex-direction: column;
     max-width: 600px;
-    margin: auto;
+    margin: 0 auto;
     padding: 20px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    font-weight: 600;
+    margin-top: 0.5rem;
+    margin-left: 5px;
+    color: #333;
 }
 
 input, textarea, select {
@@ -203,7 +213,7 @@ input, textarea, select {
 textarea {
     resize: none;
     overflow-y: auto;
-    max-height: 6em; /* máximo ~4 líneas dependiendo del line-height */
+    max-height: 6em; 
     line-height: 1.5em;
 }
 
@@ -211,30 +221,67 @@ textarea {
     float: right;
     font-size: 1.5rem;
     cursor: pointer;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    transition: background-color 0.4s ease, transform 0.2s ease;
 }
 
-button, .btn{
-    padding: 10px 15px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin: 5px;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    box-sizing: border-box;
-    text-align: center;
-}
-
-    button:hover, .btn:hover {
-        background-color: #005fa3;
+    .close-button:hover, .close-button-decision:hover, .close-button-edit:hover {
+        background-color: #9db3c8;
+        transform: scale(1.05);
     }
+
+    button, .btn, .edit-button {
+        padding: 10px 15px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        margin: 5px;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        box-sizing: border-box;
+        text-align: center;
+        transition: background-color 0.4s ease, transform 0.2s ease;
+    }
+    button:hover, .btn:hover, .btn-crear:hover {
+        background-color: #005fa3;
+        transform: scale(1.05);
+    }
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 1rem;
+}
+
+.btn-crear {
+    display: block; 
+    margin: 20px auto; 
+    padding: 12px 20px; 
+    border-radius: 8px; 
+}
+
+.btn-disabled {
+    background-color: #a0b8d9;
+    color: #e1e7f2;
+    cursor: default;
+    pointer-events: none;
+    transform: none !important;
+    box-shadow: none;
+}
 
 .footer {
     background-color: #bbe4e9;
-    padding: 1rem 0;
+    padding: 20px;
     text-align: center;
     margin-top: 2rem;
     box-shadow: 0 -2px 4px rgba(0,0,0,0.05);

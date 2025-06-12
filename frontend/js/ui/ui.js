@@ -66,7 +66,9 @@ export const renderProjects = (projects, containerId, selectedUser) => {
             <p><strong>Estado:</strong> ${statusProject}</p>
             <p><strong>Area:</strong> ${project.area?.name || project.area}</p>
             <p><strong>Tipo:</strong> ${project.type?.name || project.type}</p>
+            <div class="button-group">
             <button class="btn">Ver informacion detallada</button>
+            </div>
         `;
         div.querySelector("button").addEventListener("click", () => verDetalle(selectedUser, project.id));
         container.appendChild(div);
@@ -74,11 +76,12 @@ export const renderProjects = (projects, containerId, selectedUser) => {
         if (project.status.id === 4) { // 4 = Observado
             const editButton = document.createElement("button");
             editButton.textContent = "Editar";
-            editButton.classList.add("edit-button");
+            editButton.classList.add("btn", "edit-button");
             editButton.addEventListener("click", () => {
-                openEditModal(project); // funcion a definir
+                openEditModal(project); 
             });
-            div.appendChild(editButton);
+            const buttonGroup = div.querySelector(".button-group");
+            buttonGroup.appendChild(editButton);
         }
     });
 };

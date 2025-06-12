@@ -13,10 +13,10 @@
             </a>
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="your-projects.html" class="btn">Ver tus proyectos</a>
+                    <a href="your-projects.html" class="btn">Tus proyectos</a>
                 </li>
                 <li class="nav-item">
-                    <button onclick="window.location.href='create.html'">Crear nuevo proyecto</button>
+                    <button id="btn-create-project" class="btn btn-disabled" disabled>Crear proyecto</button>
                 </li>
             </ul>
         </header>
@@ -29,7 +29,7 @@
 
     <form id="project-form">
 
-        <input type="text" id="title" placeholder="Título del proyecto" required />
+        <input type="text" id="title" placeholder="Título del proyecto" required pattern="[A-Za-zÁÉÍÓÚÑáéíóúñ0-9 ]+" title="Solo letras y números"/>
         <textarea id="description" placeholder="Descripción (opcional)"></textarea>
         <input type="number" id="amount" placeholder="Costo estimado" min="1" step="1" required />
         <input type="number" id="duration" placeholder="Duración en días" min="1" step="1" required />
@@ -49,19 +49,19 @@
             <option value="">-- Seleccionar --</option>
         </select>
 
-        <button type="submit">Crear Proyecto</button>
+        <button type="submit" class="btn btn-crear" >Crear Proyecto</button>
 
         <div id="form-message" class="form-message"></div>
     </form>
 
     <footer class="footer">
         <div class="footer-content">
-            &copy; 2025 Sistema de Aprobación de Proyectos. Todos los derechos reservados.
-            <div class="footer-nav">
+            <p>&copy; 2025 Aprobación de Proyectos | Todos los derechos reservados</p>
+            <nav class="footer-nav">
                 <a href="index.html">Inicio</a>
-                <a href="your-projects.html">Tus proyectos</a>
-                <a href="create.html">Crear proyecto</a>
-            </div>
+                <a href="your-projects.html">Tus Proyectos</a>
+                <a href="create.html">Crear Proyecto</a>
+            </nav>
         </div>
     </footer>
 

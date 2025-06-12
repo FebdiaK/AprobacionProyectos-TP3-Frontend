@@ -7,89 +7,123 @@
     <link rel="stylesheet" href="./css/your-projects.css">
 </head>
 <body>
-    <div class="header-top-back">
-        <a href="index.html" class="btn">Volver al listado</a>
-    </div>
-    <h1>Tus Proyectos</h1>
-    <label for="user-select">Seleccionar usuario:</label>
-    <select id="user-select">
-        <option value="">-- Seleccionar --</option>
-    </select>
-
-    <button id="toggle-filtros">Mostrar/Ocultar Filtros</button>
-    <div id="filtros" style="display: none;">
-        <form id="filter-form">
-            <input type="text" name="title" placeholder="Titulo">
-            <select name="status" id="status-select">
-                <option value="">Todos los estados</option>
-            </select>
-            <button type="submit">Filtrar</button>
-        </form>
-    </div>
-
-    <!-- donde se cargan los proyectos -->
-    <div id="projects-container"></div>
-
-    <!-- Modal de detalle -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <div id="modal-body"></div>
+    <div class="page-container">
+        <div class="header-container">
+            <header class="header">
+                <a href="index.html" class="logo">
+                    <span>Aprobación de Proyectos</span>
+                </a>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="btn btn-disabled">Tus proyectos</a>
+                    </li>
+                    <li class="nav-item">
+                        <button onclick="window.location.href='create.html'">Crear proyecto</button>
+                    </li>
+                </ul>
+            </header>
         </div>
+        <main class="content">
+            <div class="title-page-yp">
+                <h1>Tus Proyectos</h1>
+                <p class="subtitle">Acá podés ver y administrar tus proyectos.</p>
+            </div>
+            <div class="user-select-wrapper">
+                <label for="user-select">Seleccionar usuario:</label>
+                <select id="user-select">
+                    <option value="">-- Seleccionar --</option>
+                </select>
+                <div id="user-message" class="user-message"></div>
+            </div>
+            <div class="filter-section">
+                <button id="toggle-filtros">Mostrar/Ocultar Filtros</button>
+                <div id="filtros" style="display: none;">
+                    <form id="filter-form">
+                        <input type="text" name="title" placeholder="Titulo">
+                        <select name="status" id="status-select">
+                            <option value="">-- Todos los estados --</option>
+                        </select>
+                        <button type="submit">Filtrar</button>
+                    </form>
+                </div>
+            </div>
+
+                <!-- donde se cargan los proyectos -->
+            
+                <div id="projects-container" class="container-sections"></div>
+            
+                <!-- Modal de detalle -->
+                <div id="modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-button">&times;</span>
+                        <div id="modal-body"></div>
+                    </div>
+                </div>
+
+                <!-- Modal para decidir -->
+                <div id="modal-decision" class="modal">
+                    <div class="modal-content">
+                        <span class="close-button-decision">&times;</span>
+
+                        <h2>Decidir paso de aprobación</h2>
+                        <form id="decision-form">
+
+                            <input type="hidden" id="stepId" name="stepId" />
+
+                            <label>Estado:</label>
+                            <select id="status" name="status" required>
+                                <option value="">Seleccione</option>
+                                <option value="2">Aprobado</option>
+                                <option value="3">Rechazado</option>
+                                <option value="4">Observado</option>
+                            </select><br />
+
+                            <label>Observación:</label>
+                            <textarea id="observation" name="observation" rows="4" cols="50"></textarea>
+                            <br />
+                            <button type="submit">Confirmar decision</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Modal para editar -->
+                <div id="edit-modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-button-edit">&times;</span>
+
+                        <h3>Editar Proyecto</h3>
+
+                        <form id="edit-form">
+
+                            <label for="edit-title">Nuevo titulo:</label>
+                            <input type="text" id="edit-title" required />
+
+                            <label for="edit-description">Nueva descripción:</label>
+                            <textarea id="edit-description" required></textarea>
+
+                            <label for="edit-duration">Nueva duración:</label>
+                            <input type="number" id="edit-duration" required />
+
+                            <button type="submit">Guardar Cambios</button>
+
+                        </form>
+                        <p id="edit-message"></p>
+                    </div>
+                </div>
+        </main>
+        <!-- FOOTER: igual que index.html -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Aprobación de Proyectos | Todos los derechos reservados</p>
+                <nav class="footer-nav">
+                    <a href="index.html">Inicio</a>
+                    <a href="your-projects.html">Tus Proyectos</a>
+                    <a href="create.html">Crear Proyecto</a>
+                </nav>
+            </div>
+        </footer>
+
+        <script type="module" src="./js/pages/your-projects.js"></script>
     </div>
-
-    <!-- Modal para decidir -->
-    <div id="modal-decision" class="modal">
-        <div class="modal-content">
-            <span class="close-button-decision">&times;</span>
-
-            <h2>Decidir paso de aprobación</h2>
-            <form id="decision-form">
-
-                <input type="hidden" id="stepId" name="stepId" />
-
-                <label>Estado:</label><br />
-                <select id="status" name="status" required>
-                    <option value="">Seleccione</option>
-                    <option value="2">Aprobado</option>
-                    <option value="3">Rechazado</option>
-                    <option value="4">Observado</option>
-                </select><br /><br />
-
-                <label>Observación:</label><br />
-                <textarea id="observation" name="observation" rows="4" cols="50"></textarea><br /><br />
-
-                <button type="submit">Confirmar decision</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal para editar -->
-    <div id="edit-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button-edit">&times;</span>
-
-            <h3>Editar Proyecto</h3>
-
-            <form id="edit-form">
-
-                <label for="edit-title">Nuevo titulo:</label>
-                <input type="text" id="edit-title" required />
-
-                <label for="edit-description">Nueva descripcion:</label>
-                <textarea id="edit-description" required></textarea>
-
-                <label for="edit-duration">Nueva duracion:</label>
-                <input type="number" id="edit-duration" required />
-
-                <button type="submit">Guardar Cambios</button>
-                
-            </form>
-            <p id="edit-message"></p>
-        </div>
-    </div>
-
-
-    <script type="module" src="./js/pages/your-projects.js"></script>
 </body>
 </html>

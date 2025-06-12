@@ -1,15 +1,55 @@
 
+.container-sections {
+    display: block !important; 
+    margin: 1rem;
+}
+
 .collapsible-section {
     border: 1px solid #ccc;
     border-radius: 8px;
     margin-bottom: 1em;
     padding: 0.5em;
+    flex-direction: column;
+}
+
+.page-container {
+    min-height: 97.5vh; 
+    display: flex;
+    flex-direction: column; 
+}
+
+.content {
+    flex: 1; 
 }
 
 .section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
+    padding: 0 1rem;
+    max-width: 1200px;
+    margin: 0 auto 1rem auto;
+    
+}
+
+.section-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    padding: 0 1rem;
+    max-width: 950px;
+    margin: 0 auto 2rem auto;
+    place-content: center;
+}
+
+.project-card {
+    max-width: 400px !important;
+}
+.single-card {
+    max-width: 500px;
+    width: 90%;
+    margin: 0 auto;
 }
 
 .toggle-btn {
@@ -25,4 +65,55 @@
     font-size: 1.5em;
     cursor: pointer;
     color: black;
+}
+
+
+.title-page-yp {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.title-page-yp h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: #000;
+}
+
+.user-select-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; 
+    text-align-last: center; 
+}
+
+#user-select {
+    width: 30%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    text-align: center;
+    
+}
+
+.filter-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    margin-bottom: 1rem;
+}
+
+#filtros {
+    width: 30%;
+    padding: 10px;
+}
+
+#status-select {
+    text-align: center;
+    
 }
