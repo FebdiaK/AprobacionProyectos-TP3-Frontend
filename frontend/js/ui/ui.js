@@ -54,13 +54,16 @@ export const renderProjects = (projects, containerId, selectedUser) => {
     }
     clearContainer(containerId);
 
+    const statusTranslations = {'Pending': 'Pendiente', 'Approved': 'Aprobado', 'Rejected': 'Rechazado', 'Observed': 'Observado' };
+
     projects.forEach(project => {
+        const statusProject = statusTranslations[project.status] || statusTranslations[project.status.name] || 'Desconocido';
         const div = document.createElement("div");
         div.className = "project-card";
         div.id = `project-card-${project.id}`;
         div.innerHTML = `
             <h2>${project.title}</h2>
-            <p><strong>Estado:</strong> ${project.status?.name || project.status}</p>
+            <p><strong>Estado:</strong> ${statusProject}</p>
             <p><strong>Area:</strong> ${project.area?.name || project.area}</p>
             <p><strong>Tipo:</strong> ${project.type?.name || project.type}</p>
             <button class="btn">Ver informacion detallada</button>

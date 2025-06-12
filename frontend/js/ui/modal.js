@@ -38,14 +38,17 @@ export const fillModal = (project, selectedUser) => {
 
     const primerPendiente = project.steps.find(s => [1, 4].includes(s.status.id));
     const puedeDecidir = primerPendiente && primerPendiente.approverRole?.id === selectedUser?.role.id;
+    const statusLabels = { 1: 'Pendiente', 2: 'Aprobado', 3: 'Rechazado', 4: 'En observacion' };
+    const statusProject = statusLabels[project.status.id] || 'Desconocido';
 
     const stepsHtml = project.steps.map(step => {
         const esActual = step.id === primerPendiente?.id && puedeDecidir;
+        const statusStep = statusLabels[step.status.id] || 'Desconocido';
 
         return `
             <div class="step">
                 <p><strong>Orden:</strong> ${step.stepOrder}</p>
-                <p><strong>Estado:</strong> ${step.status.name}</p>
+                <p><strong>Estado:</strong> ${statusStep}</p>
                 <p><strong>Observaciones:</strong> ${step.observations || 'Pendiente'}</p>
                 <p><strong>Fecha de decision:</strong> ${step.decisionDate || 'Pendiente'}</p>
                 <p><strong>Rol aprobador:</strong> ${step.approverRole.name}</p>
@@ -57,16 +60,20 @@ export const fillModal = (project, selectedUser) => {
 
     modalBody.innerHTML = `
         <h2>${project.title}</h2>
-        <p><strong>ID:</strong> ${project.id}</p>
-        <p><strong>Descripcion:</strong> ${project.description}</p>
-        <p><strong>Area:</strong> ${project.area.name}</p>
-        <p><strong>Tipo:</strong> ${project.type.name}</p>
-        <p><strong>Estado:</strong> ${project.status.name}</p>
-        <p><strong>Duracion estimada:</strong> ${project.duration} dias</p>
-        <p><strong>Costo estimado:</strong> $${project.amount}</p>
-        <p><strong>Usuario creador: </strong> ${project.user.name} (${project.user.email})<p>
-        <p><strong>Rol:</strong> ${project.user.role.name}</p><br>
+        <div class="modal-section">
+            <p><strong>ID:</strong> ${project.id}</p>
+            <p><strong>Descripcion:</strong> ${project.description}</p>
+            <p><strong>Area:</strong> ${project.area.name}</p>
+            <p><strong>Tipo:</strong> ${project.type.name}</p>
+            <p><strong>Estado:</strong> ${statusProject}</p>
+            <p><strong>Duracion estimada:</strong> ${project.duration} dias</p>
+            <p><strong>Costo estimado:</strong> $${project.amount}</p>
+            <p><strong>Usuario creador: </strong> ${project.user.name} (${project.user.email})<p>
+            <p><strong>Rol:</strong> ${project.user.role.name}</p>
+        </div>
         <h2>Flujo de aprobacion</h2>
+        <div class="steps-container">
         ${stepsHtml || "<p>No hay pasos de aprobación definidos.</p>"}
+        </div>
     `;
 };

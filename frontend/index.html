@@ -6,14 +6,29 @@
     <link rel="stylesheet" href="./css/stylesBase.css">
 </head>
 <body>
-    <div class="header-top">
-        <a href="your-projects.html" class="btn">Ver tus proyectos</a>
-        <button onclick="window.location.href='create.html'">Crear nuevo proyecto</button>
+    <div class="header-container">
+        <header class="header">
+            <a href="index.html" class="logo">
+                <span>Aprobación de Proyectos</span>
+            </a>
+            <ul class="nav">
+                <li class="nav-item">
+                    <a href="your-projects.html" class="btn">Tus proyectos</a>
+                </li>
+                <li class="nav-item">
+                    <button onclick="window.location.href='create.html'">Crear proyecto</button>
+                </li>
+            </ul>
+        </header>
     </div>
-    <h1>Listado de Proyectos</h1>
+    <div class="title-page">
+        <h1>Listado de Proyectos</h1>
+        <p class="subtitle">Acá podés ver la información completa de todos los proyectos que se hayan creado.</p>
+    </div>
+
 
     <div id="projects-container"></div>
-    
+
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
@@ -22,6 +37,17 @@
             </div>
         </div>
     </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Aprobación de Proyectos | Todos los derechos reservados</p>
+            <nav class="footer-nav">
+                <a href="index.html">Inicio</a>
+                <a href="your-projects.html">Tus Proyectos</a>
+                <a href="create.html">Crear Proyecto</a>
+            </nav>
+        </div>
+    </footer>
     <script type="module" src="./js/pages/listIndex.js"></script>
 </body>
 </html>
