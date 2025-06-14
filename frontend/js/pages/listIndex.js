@@ -4,6 +4,7 @@
 import { getProjects } from "../api/api.js";
 import { renderProjects } from "../ui/ui.js";
 import { closeModal } from "../ui/modal.js";
+import { showNotification} from '../utils/helpers.js';
 
 window.onload = async () => {
     try {
@@ -17,19 +18,19 @@ window.onload = async () => {
         const projects = await getProjects();
 
         if (projects.length === 0) {
-            container.innerHTML = "<p>No hay proyectos creados. Crea un nuevo proyecto.</p>";
+            showNotification("No se encontraron proyectos.", "alert", "general");
             return;
         }
 
         renderProjects(projects, container.id, null);
 
-        const closeButton = document.querySelector('.close-button'); 
+        const closeButton = document.querySelector('.close-button');
         if (closeButton) { closeButton.addEventListener('click', closeModal); }
 
 
     } catch (error) {
         console.error("Error al obtener proyectos:", error);
-        document.getElementById("projects-container").innerHTML = "<p>No se pudieron cargar los proyectos.</p>";
+        showNotification("Error al obtener los proyectos.", "error", "general");
     }
 };
 

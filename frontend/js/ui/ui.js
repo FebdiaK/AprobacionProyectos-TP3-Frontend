@@ -64,32 +64,39 @@ export const renderProjects = (projects, containerId, selectedUser) => {
         div.innerHTML = `
             <h2>${project.title}</h2>
             <p><strong>Estado:</strong> ${statusProject}</p>
-            <p><strong>Area:</strong> ${project.area?.name || project.area}</p>
+            <p><strong>Área:</strong> ${project.area?.name || project.area}</p>
             <p><strong>Tipo:</strong> ${project.type?.name || project.type}</p>
             <div class="button-group">
-            <button class="btn">Ver informacion detallada</button>
+            <button class="btn">Ver información detallada</button>
             </div>
         `;
         div.querySelector("button").addEventListener("click", () => verDetalle(selectedUser, project.id));
         container.appendChild(div);
 
-        if (project.status.id === 4) { // 4 = Observado
+        if (selectedUser !== null) {
             const editButton = document.createElement("button");
             editButton.textContent = "Editar";
             editButton.classList.add("btn", "edit-button");
-            editButton.addEventListener("click", () => {
-                openEditModal(project); 
-            });
+
+            const isEditable = project.status.id === 4; // Observado
+
+            if (isEditable) {
+                editButton.addEventListener("click", () => openEditModal(project));
+            } else {
+                editButton.disabled = true;
+                editButton.classList.add("btn-disabled");
+            }
+
             const buttonGroup = div.querySelector(".button-group");
             buttonGroup.appendChild(editButton);
+            container.appendChild(div);
         }
     });
 };
 
 export const renderOptionList = (selectId, list, labelProp, valueProp) => {
     const select = document.getElementById(selectId);
-    //clearContainer(select.id);
-    
+
     list.forEach(item => {
         const option = new Option(item[labelProp], item[valueProp]);
         select.appendChild(option);

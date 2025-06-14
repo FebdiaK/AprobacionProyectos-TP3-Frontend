@@ -5,6 +5,7 @@ import { abrirModalDecision, cerrarModalDecision, closeModal, closeEditModal, pr
 import { verDetalle, selectedProjectId } from '../ui/detail.js';
 import { loadProjects } from '../ui/list.js';
 import { updateCardProject } from '../utils/updateCardProject.js';
+import { showNotification, translateStatus, addSingleCardClass } from '../utils/helpers.js';
 window.abrirModalDecision = abrirModalDecision;
 
 const userMap = new Map();
@@ -20,7 +21,8 @@ async function init() {
     renderOptionList("user-select", users, "name", "id");
 
     const statuses = await getStatuses();
-    renderOptionList("status-select", statuses, "name", "id");
+    const translatedStatuses = statuses.map(status => ({...status, name: translateStatus(status.name)})); //traduzco
+    renderOptionList("status-select", translatedStatuses, "name", "id");
 
     document.getElementById('user-select').addEventListener('change', onUserChange);
     document.getElementById('filter-form').addEventListener('submit', onFilterSubmit);
@@ -46,27 +48,33 @@ async function onUserChange() {
     clearContainer('projects-container');
 
     if (selectedUser) {
+        const userRole = selectedUser.role?.name || 'Rol desconocido';
+        document.getElementById("user-role").innerHTML = `<p><strong>Rol:</strong> ${userRole}</p>`;
+        
         await loadProjects(selectedUser, {});
-        document.getElementById("user-message").innerHTML = '';
-        addSingleCardClass();
+        addSingleCardClass(); //para mostrar cards individuales centradas (meramente estético)
+
     } else {
-        document.getElementById('user-message').innerHTML = '<p>Selecciona un usuario para ver sus proyectos.</p>';
-    }
 
+        document.getElementById("user-role").innerHTML = '';
+        showNotification("Selecciona un usuario para ver sus proyectos.", "alert", "user");
+    }   
+};
     
-}
-
 //Criterio 4: El usuario puede realizar búsquedas de sus proyectos además realizar búsquedas y filtrarlos.
 async function onFilterSubmit(e) {
     e.preventDefault();
-    if (!selectedUser) return alert("Selecciona un usuario primero.");
+    if (!selectedUser) {
+        showNotification("Selecciona un usuario primero.", "error", "filtro");
+        return;
+    }
 
     const formData = new FormData(e.target);
     const filtros = Object.fromEntries([...formData.entries()].filter(([_, v]) => v.trim() !== ''));
 
     await loadProjects(selectedUser, filtros);
     addSingleCardClass();
-}
+};
 
 //Criterio 5: El usuario puede tomar una decisión sobre la aprobación de un proyecto
 async function onDecisionSubmit(e) { 
@@ -76,7 +84,10 @@ async function onDecisionSubmit(e) {
     const statusId = document.getElementById('status').value;
     const observation = document.getElementById('observation').value;
 
-    if (!statusId) return alert("Debe seleccionar un estado.");
+    if (!statusId) {
+        showNotification("Debe seleccionar un estado.", "error", "decision");
+        return;
+    }
 
     try {
         await sendDecision(
@@ -86,15 +97,19 @@ async function onDecisionSubmit(e) {
             statusId,
             observation
         );
-        //alert('Decisión enviada correctamente.');
-        cerrarModalDecision();
+        showNotification("Decisión tomada correctamente.", "success", "decision");
+        updateCardProject(selectedProjectId, selectedUser);
+
         verDetalle(selectedUser, selectedProjectId); // recargar detalle
+
+
+        setTimeout(() => cerrarModalDecision(), 4000);
 
     }catch (err) {
         console.error(err);
-        alert("Error al decidir: " + err.message);
+        showNotification("Error al decidir: " + err.message, "error");
     }
- }
+};
 
 async function onEditSubmit(e) {
     e.preventDefault();
@@ -103,44 +118,30 @@ async function onEditSubmit(e) {
     const descriptionInput = document.getElementById("edit-description").value?.trim();
     const durationInput = parseInt(document.getElementById("edit-duration").value);
 
-    const mensaje = document.getElementById("edit-message");
 
-    if (isNaN(durationInput) || durationInput <= 0) {
-        mensaje.textContent = "La duración debe mayor a 0.";
-        return;
-    }
+    if (isNaN(durationInput) || durationInput <= 0) { showNotification("La duración debe ser un número positivo.", "alert", "edit");return;}
     
-    if (descriptionInput && descriptionInput.length < 10) {
-        mensaje.textContent = "La descripción mínima es de 10 caracteres.";
-        return;
-    }
+    if (descriptionInput && descriptionInput.length < 10) { showNotification("La descripción mínima es de 10 caracteres.", "alert", "edit");return;}
 
     const title = titleInput || projectToEdit.title;
     const description = descriptionInput || projectToEdit.description;
 
     try {
         await sendEdit(projectToEdit.id, title, description, durationInput);
-        document.getElementById("edit-message").textContent = "Proyecto editado correctamente.";
-            
+        
         updateCardProject(projectToEdit, selectedUser);
+        showNotification("Decisión tomada correctamente.", "success", "edit");
 
-        closeEditModal();
+        setTimeout(() => closeEditModal(), 4000); 
 
     } catch (err) {
-        document.getElementById("edit-message").textContent = "Error al editar: " + err.message;
+        showNotification("Error al editar. " + err.message, "error", "edit");
     }
 };
 
-function addSingleCardClass() {
-    const sections = document.querySelectorAll('.section-content');
-    sections.forEach(section => {
-        const cards = section.querySelectorAll('.project-card');
-        cards.forEach(card => card.classList.remove('single-card')); // limpiar clases anteriores
-        if (cards.length === 1) {
-            cards[0].classList.add('single-card');
-        }
-    });
-}
+
+
+
 
 
 

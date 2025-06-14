@@ -25,7 +25,6 @@ export function openEditModal(project) {
     document.getElementById("edit-title").value = project.title;
     document.getElementById("edit-description").value = project.description;
     document.getElementById("edit-duration").value = project.duration;
-    document.getElementById("edit-message").textContent = "";
     document.getElementById("edit-modal").style.display = "block";
 }
 export function closeEditModal() {
@@ -41,19 +40,27 @@ export const fillModal = (project, selectedUser) => {
     const statusLabels = { 1: 'Pendiente', 2: 'Aprobado', 3: 'Rechazado', 4: 'En observacion' };
     const statusProject = statusLabels[project.status.id] || 'Desconocido';
 
+    const hayRechazado = project.steps.some(s => s.status.id === 3);
+
     const stepsHtml = project.steps.map(step => {
         const esActual = step.id === primerPendiente?.id && puedeDecidir;
         const statusStep = statusLabels[step.status.id] || 'Desconocido';
+
+        let accionHtml = "";
+        if (esActual) {
+            if (hayRechazado) { accionHtml = `<div class="notification error" style="display: block;"">Este proyecto ya fue rechazado. No se pueden tomar m谩s decisiones.</div>`; }
+            else {accionHtml = `<button onclick="window.abrirModalDecision(${step.id})">Decidir</button>`;}
+        }
 
         return `
             <div class="step">
                 <p><strong>Orden:</strong> ${step.stepOrder}</p>
                 <p><strong>Estado:</strong> ${statusStep}</p>
                 <p><strong>Observaciones:</strong> ${step.observations || 'Pendiente'}</p>
-                <p><strong>Fecha de decision:</strong> ${step.decisionDate || 'Pendiente'}</p>
+                <p><strong>Fecha de decisi贸n:</strong> ${step.decisionDate || 'Pendiente'}</p>
                 <p><strong>Rol aprobador:</strong> ${step.approverRole.name}</p>
                 <p><strong>Usuario aprobador:</strong> ${step.approverUser?.name || 'No asignado'} (${step.approverUser?.email || '-'})</p>
-                ${esActual ? `<button onclick="window.abrirModalDecision(${step.id})">Decidir</button>` : ""}
+                ${accionHtml}
             </div>
         `;
     }).join("");
@@ -62,18 +69,18 @@ export const fillModal = (project, selectedUser) => {
         <h2>${project.title}</h2>
         <div class="modal-section">
             <p><strong>ID:</strong> ${project.id}</p>
-            <p><strong>Descripcion:</strong> ${project.description}</p>
-            <p><strong>Area:</strong> ${project.area.name}</p>
+            <p><strong>Descripci贸n:</strong> ${project.description}</p>
+            <p><strong>脕rea:</strong> ${project.area.name}</p>
             <p><strong>Tipo:</strong> ${project.type.name}</p>
             <p><strong>Estado:</strong> ${statusProject}</p>
-            <p><strong>Duracion estimada:</strong> ${project.duration} dias</p>
+            <p><strong>Duraci贸n estimada:</strong> ${project.duration} dias</p>
             <p><strong>Costo estimado:</strong> $${project.amount}</p>
             <p><strong>Usuario creador: </strong> ${project.user.name} (${project.user.email})<p>
             <p><strong>Rol:</strong> ${project.user.role.name}</p>
         </div>
-        <h2>Flujo de aprobacion</h2>
+        <h2>Flujo de aprobaci贸n</h2>
         <div class="steps-container">
-        ${stepsHtml || "<p>No hay pasos de aprobaci髇 definidos.</p>"}
+        ${stepsHtml || "<p>No hay pasos de aprobaci贸n definidos.</p>"}
         </div>
     `;
 };

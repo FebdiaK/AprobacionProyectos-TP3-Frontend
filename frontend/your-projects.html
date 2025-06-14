@@ -24,34 +24,45 @@
             </header>
         </div>
         <main class="content">
+
             <div class="title-page-yp">
                 <h1>Tus Proyectos</h1>
                 <p class="subtitle">Acá podés ver y administrar tus proyectos.</p>
             </div>
+
+            
+
             <div class="user-select-wrapper">
                 <label for="user-select">Seleccionar usuario:</label>
                 <select id="user-select">
                     <option value="">-- Seleccionar --</option>
                 </select>
-                <div id="user-message" class="user-message"></div>
-            </div>
-            <div class="filter-section">
-                <button id="toggle-filtros">Mostrar/Ocultar Filtros</button>
-                <div id="filtros" style="display: none;">
-                    <form id="filter-form">
-                        <input type="text" name="title" placeholder="Titulo">
-                        <select name="status" id="status-select">
-                            <option value="">-- Todos los estados --</option>
-                        </select>
-                        <button type="submit">Filtrar</button>
-                    </form>
-                </div>
+                <div id="user-role" class="user-role"></div>
+
+                <div id="notification-user" class="notification"></div>
             </div>
 
-                <!-- donde se cargan los proyectos -->
-            
+            <div class="filter-section">
+                <button id="toggle-filtros">Mostrar/Ocultar Filtros</button>
+
+                <div id="notification-filtro" class="notification"></div>
+
+            <div id="filtros" style="display: none;">
+                <form id="filter-form">
+                    <input type="text" name="title" placeholder="Titulo">
+                    <select name="status" id="status-select">
+                        <option value="">-- Todos los estados --</option>
+                    </select>
+                    <button type="submit">Filtrar</button>
+                </form>
+            </div>
+
+        </div>
+
+    <!-- donde se cargan los proyectos -->
+
                 <div id="projects-container" class="container-sections"></div>
-            
+
                 <!-- Modal de detalle -->
                 <div id="modal" class="modal">
                     <div class="modal-content">
@@ -65,7 +76,7 @@
                     <div class="modal-content">
                         <span class="close-button-decision">&times;</span>
 
-                        <h2>Decidir paso de aprobación</h2>
+                        <h3>Decidir paso de aprobación</h3>
                         <form id="decision-form">
 
                             <input type="hidden" id="stepId" name="stepId" />
@@ -83,6 +94,7 @@
                             <br />
                             <button type="submit">Confirmar decision</button>
                         </form>
+                        <div id="notification-decision" class="notification"></div>
                     </div>
                 </div>
 
@@ -107,10 +119,11 @@
                             <button type="submit">Guardar Cambios</button>
 
                         </form>
-                        <p id="edit-message"></p>
+                        <div id="notification-edit" class="notification"></div>
+                        
                     </div>
                 </div>
-        </main>
+</main>
         <!-- FOOTER: igual que index.html -->
         <footer class="footer">
             <div class="footer-content">

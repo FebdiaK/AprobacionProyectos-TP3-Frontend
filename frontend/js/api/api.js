@@ -59,7 +59,13 @@ export const createProject = async (project) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(project),
     });
-    if (!response.ok) throw new Error("Error al crear proyecto");
+    if (!response.ok) {
+        // Intenta leer el mensaje de error que envía el backend
+        const { message } = await response.json();
+        const error = new Error(message || `Error ${response.status}`);
+        error.status = response.status;
+        throw error;
+    }
     return await response.json();
 };
 
@@ -77,8 +83,11 @@ export async function sendDecision(projectId, stepId, userId, statusId, observat
     });
 
     if (!res.ok) {
-        const error = await res.json();
-        throw new Error(error.message || "Error al decidir.");
+        // Intenta leer el mensaje de error que envía el backend
+        const { message } = await res.json();
+        const error = new Error(message || `Error ${res.status}`);
+        error.status = res.status;
+        throw error;
     }
 }
 
@@ -95,8 +104,11 @@ export async function sendEdit(projectId, titulo, descripcion, duracion) {
     });
 
     if (!res.ok) {
-        const error = await res.json();
-        throw new Error(error.message || "Error al editar.");
+        // Intenta leer el mensaje de error que envía el backend
+        const { message } = await res.json();
+        const error = new Error(message || `Error ${res.status}`);
+        error.status = res.status;
+        throw error;
     }
 }
 

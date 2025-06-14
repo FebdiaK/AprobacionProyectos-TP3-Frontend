@@ -143,6 +143,7 @@ body {
 }
 
 #modal-body h2 {
+    text-align: center;
     color: #022f5c;
     margin-bottom: 1rem;
     font-size: 1.8rem;
@@ -271,12 +272,13 @@ textarea {
 }
 
 .btn-disabled {
-    background-color: #a0b8d9;
+    background-color: #7299cf;
     color: #e1e7f2;
     cursor: default;
     pointer-events: none;
     transform: none !important;
     box-shadow: none;
+    cursor: not-allowed;
 }
 
 .footer {
@@ -334,3 +336,42 @@ textarea {
         background-color: #f8d7da;
         border: 1px solid #f5c6cb;
     }
+
+.notification {
+    display: none;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+    .notification.info {
+        background-color: #d9edf7;
+        color: #31708f;
+    }
+
+    .notification.error {
+        background-color: #f2dede;
+        color: #a94442;
+    }
+
+    .notification.success {
+        background-color: #dff0d8;
+        color: #3c763d;
+    }
+
+    .notification.alert {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+.modal-content h3 {
+    text-align: center;
+    color: #022f5c;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.3rem;
+}
+

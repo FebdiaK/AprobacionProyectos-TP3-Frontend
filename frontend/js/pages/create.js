@@ -3,6 +3,7 @@
 
 import { createProject, getAreas, getTypes, getUsers } from "../api/api.js";
 import { renderOptionList } from "../ui/ui.js";
+import { showNotification } from '../utils/helpers.js';
 
 window.onload = async () => {
 
@@ -53,6 +54,7 @@ document.getElementById("project-form").addEventListener("submit", async (e) => 
         descriptionInput.value = desc.charAt(0).toUpperCase() + desc.slice(1);
         desc = descriptionInput.value;
     }
+    if (desc && desc.length < 10) { showNotification("La descripción mínima es de 10 caracteres.", "alert", "create"); return; }
 
     const proyecto = {
         title: val,
@@ -64,19 +66,13 @@ document.getElementById("project-form").addEventListener("submit", async (e) => 
         type: parseInt(document.getElementById("type-select").value)
     };
 
-    const formMessage = document.getElementById("form-message");
-
     try {
         await createProject(proyecto);
-        formMessage.textContent = "Proyecto creado con éxito. Redirigiendo al listado...";
-        formMessage.className = "form-message success";
-        document.getElementById("project-form").reset();
+        showNotification("Proyecto creado con éxito. Redirigiendo al listado..", "success", "create");
         setTimeout(() => window.location.href = "index.html", 4000);
 
     } catch (error) {
-        formMessage.textContent = "Error: " + error.message;
-        formMessage.className = "form-message error";
-
+        showNotification("Error al crear proyecto: " + error.message, "error", "create");
     }
 });
 
