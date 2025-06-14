@@ -23,14 +23,17 @@
                 </ul>
             </header>
         </div>
+
         <main class="content">
+
+            <!--  Titulo -->
 
             <div class="title-page-yp">
                 <h1>Tus Proyectos</h1>
                 <p class="subtitle">Acá podés ver y administrar tus proyectos.</p>
             </div>
 
-            
+            <!-- Usuario -->
 
             <div class="user-select-wrapper">
                 <label for="user-select">Seleccionar usuario:</label>
@@ -42,89 +45,96 @@
                 <div id="notification-user" class="notification"></div>
             </div>
 
+            <!--  Filtros -->
+
             <div class="filter-section">
+
                 <button id="toggle-filtros">Mostrar/Ocultar Filtros</button>
 
                 <div id="notification-filtro" class="notification"></div>
 
-            <div id="filtros" style="display: none;">
-                <form id="filter-form">
-                    <input type="text" name="title" placeholder="Titulo">
-                    <select name="status" id="status-select">
-                        <option value="">-- Todos los estados --</option>
-                    </select>
-                    <button type="submit">Filtrar</button>
-                </form>
+                <div id="filtros" style="display: none;">
+                    <form id="filter-form">
+                        <input type="text" name="title" placeholder="Titulo">
+                        <select name="status" id="status-select">
+                            <option value="">-- Todos los estados --</option>
+                        </select>
+                        <button type="submit">Filtrar</button>
+                    </form>
+                </div>
+
             </div>
 
-        </div>
+            <!-- Contenedor principal -->
 
-    <!-- donde se cargan los proyectos -->
+            <div id="projects-container" class="container-sections"></div>
 
-                <div id="projects-container" class="container-sections"></div>
+            <!-- Modal de detalle -->
 
-                <!-- Modal de detalle -->
-                <div id="modal" class="modal">
-                    <div class="modal-content">
-                        <span class="close-button">&times;</span>
-                        <div id="modal-body"></div>
-                    </div>
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button">&times;</span>
+                    <div id="modal-body"></div>
                 </div>
+            </div>
 
-                <!-- Modal para decidir -->
-                <div id="modal-decision" class="modal">
-                    <div class="modal-content">
-                        <span class="close-button-decision">&times;</span>
+            <!-- Modal para decidir -->
 
-                        <h3>Decidir paso de aprobación</h3>
-                        <form id="decision-form">
+            <div id="modal-decision" class="modal">
+                <div class="modal-content">
+                    <span class="close-button-decision">&times;</span>
 
-                            <input type="hidden" id="stepId" name="stepId" />
+                    <h3>Decidir paso de aprobación</h3>
+                    <form id="decision-form">
 
-                            <label>Estado:</label>
-                            <select id="status" name="status" required>
-                                <option value="">Seleccione</option>
-                                <option value="2">Aprobado</option>
-                                <option value="3">Rechazado</option>
-                                <option value="4">Observado</option>
-                            </select><br />
+                        <input type="hidden" id="stepId" name="stepId" />
 
-                            <label>Observación:</label>
-                            <textarea id="observation" name="observation" rows="4" cols="50"></textarea>
-                            <br />
-                            <button type="submit">Confirmar decision</button>
-                        </form>
-                        <div id="notification-decision" class="notification"></div>
-                    </div>
+                        <label>Estado:</label>
+                        <select id="status" name="status" required>
+                            <option value="">Seleccione</option>
+                            <option value="2">Aprobado</option>
+                            <option value="3">Rechazado</option>
+                            <option value="4">Observado</option>
+                        </select><br />
+
+                        <label>Observación:</label>
+                        <textarea id="observation" name="observation" rows="4" cols="50"></textarea>
+                        <br />
+                        <button type="submit">Confirmar decision</button>
+                    </form>
+                    <div id="notification-decision" class="notification"></div>
                 </div>
+            </div>
 
-                <!-- Modal para editar -->
-                <div id="edit-modal" class="modal">
-                    <div class="modal-content">
-                        <span class="close-button-edit">&times;</span>
+            <!-- Modal para editar -->
 
-                        <h3>Editar Proyecto</h3>
+            <div id="edit-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button-edit">&times;</span>
 
-                        <form id="edit-form">
+                    <h3>Editar Proyecto</h3>
 
-                            <label for="edit-title">Nuevo titulo:</label>
-                            <input type="text" id="edit-title" required />
+                    <form id="edit-form">
 
-                            <label for="edit-description">Nueva descripción:</label>
-                            <textarea id="edit-description" required></textarea>
+                        <label for="edit-title">Nuevo titulo:</label>
+                        <input type="text" id="edit-title" required />
 
-                            <label for="edit-duration">Nueva duración:</label>
-                            <input type="number" id="edit-duration" required />
+                        <label for="edit-description">Nueva descripción:</label>
+                        <textarea id="edit-description" required></textarea>
 
-                            <button type="submit">Guardar Cambios</button>
+                        <label for="edit-duration">Nueva duración:</label>
+                        <input type="number" id="edit-duration" required />
 
-                        </form>
-                        <div id="notification-edit" class="notification"></div>
-                        
-                    </div>
+                        <button type="submit">Guardar Cambios</button>
+
+                    </form>
+                    <div id="notification-edit" class="notification"></div>
+
                 </div>
-</main>
-        <!-- FOOTER: igual que index.html -->
+            </div>
+        </main>
+
+        <!-- FOOTER -->
         <footer class="footer">
             <div class="footer-content">
                 <p>&copy; 2025 Aprobación de Proyectos | Todos los derechos reservados</p>

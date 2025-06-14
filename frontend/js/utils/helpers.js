@@ -41,12 +41,24 @@ export function translateStatus(statusName) {
 }
 
 export function addSingleCardClass() {
+
     const sections = document.querySelectorAll('.section-content');
     sections.forEach(section => {
         const cards = section.querySelectorAll('.project-card');
         cards.forEach(card => card.classList.remove('single-card')); // limpiar clases anteriores
         if (cards.length === 1) {
+            console.log("Se aplica single-card a", cards[0]);
             cards[0].classList.add('single-card');
         }
     });
+}
+
+export function addSingleCardClassGeneral() {
+
+    const section = document.getElementById('projects-container');
+    const cards = section.querySelectorAll('.project-card');
+    cards.forEach(card => card.classList.remove('single-card')); // limpiar clases anteriores
+    if (cards.length === 1) {
+        cards[0].classList.add('single-card');
+    }
 }

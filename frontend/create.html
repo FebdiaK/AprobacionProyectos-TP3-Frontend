@@ -6,65 +6,73 @@
     <link rel="stylesheet" href="./css/stylesBase.css">
 </head>
 <body>
-    <div class="header-container">
-        <header class="header">
-            <a href="index.html" class="logo">
-                <span>Aprobación de Proyectos</span>
-            </a>
-            <ul class="nav">
-                <li class="nav-item">
-                    <a href="your-projects.html" class="btn">Tus proyectos</a>
-                </li>
-                <li class="nav-item">
-                    <button id="btn-create-project" class="btn btn-disabled" disabled>Crear proyecto</button>
-                </li>
-            </ul>
-        </header>
-    </div>
-
-    <div class="title-page">
-        <h1>Crear nuevo proyecto</h1>
-        <p class="subtitle">Completá los datos requeridos para registrar una nueva propuesta.</p>
-    </div>
-
-    <form id="project-form">
-
-        <input type="text" id="title" placeholder="Título del proyecto" required pattern="[A-Za-zÁÉÍÓÚÑáéíóúñ0-9 ]+" title="Solo letras y números"/>
-        <textarea id="description" placeholder="Descripción (opcional)"></textarea>
-        <input type="number" id="amount" placeholder="Costo estimado" min="1" step="1" required />
-        <input type="number" id="duration" placeholder="Duración en días" min="1" step="1" required />
-
-        <label for="user-select">Usuario creador:</label>
-        <select id="user-select" required>
-            <option value="">-- Seleccionar --</option>
-        </select>
-
-        <label for="area-select">Área del proyecto:</label>
-        <select id="area-select" required>
-            <option value="">-- Seleccionar --</option>
-        </select>
-
-        <label for="type-select">Tipo de proyecto:</label>
-        <select id="type-select" required>
-            <option value="">-- Seleccionar --</option>
-        </select>
-
-        <button type="submit" class="btn btn-crear" >Crear Proyecto</button>
-
-        <div id="notification-create" class="notification"></div>
-    </form>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <p>&copy; 2025 Aprobación de Proyectos | Todos los derechos reservados</p>
-            <nav class="footer-nav">
-                <a href="index.html">Inicio</a>
-                <a href="your-projects.html">Tus Proyectos</a>
-                <a href="create.html">Crear Proyecto</a>
-            </nav>
+    <div class="page-container">
+        <div class="header-container">
+            <header class="header">
+                <a href="index.html" class="logo">
+                    <span>Aprobación de Proyectos</span>
+                </a>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a href="your-projects.html" class="btn">Tus proyectos</a>
+                    </li>
+                    <li class="nav-item">
+                        <button id="btn-create-project" class="btn btn-disabled" disabled>Crear proyecto</button>
+                    </li>
+                </ul>
+            </header>
         </div>
-    </footer>
 
-    <script type="module" src="./js/pages/create.js"></script>
+        <main class="content">
+            <!--  Titulo -->
+
+            <div class="title-page">
+                <h1>Crear nuevo proyecto</h1>
+                <p class="subtitle">Completá los datos requeridos para registrar una nueva propuesta.</p>
+            </div>
+
+            <!--  Formulario para crear -->
+
+            <form id="project-form">
+
+                <input type="text" id="title" placeholder="Título del proyecto" required pattern="[A-Za-zÁÉÍÓÚÑáéíóúñ0-9 ]+" title="Solo letras y números" />
+                <textarea id="description" placeholder="Descripción "></textarea>
+                <input type="number" id="amount" placeholder="Costo estimado" min="1" step="1" required />
+                <input type="number" id="duration" placeholder="Duración en días" min="1" step="1" required />
+
+                <label for="user-select">Usuario creador:</label>
+                <select id="user-select" required>
+                    <option value="">-- Seleccionar --</option>
+                </select>
+
+                <label for="area-select">Área del proyecto:</label>
+                <select id="area-select" required>
+                    <option value="">-- Seleccionar --</option>
+                </select>
+
+                <label for="type-select">Tipo de proyecto:</label>
+                <select id="type-select" required>
+                    <option value="">-- Seleccionar --</option>
+                </select>
+
+                <button type="submit" class="btn btn-crear">Crear Proyecto</button>
+
+                <div id="notification-create" class="notification"></div>
+            </form>
+        </main>
+        <!--  Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Aprobación de Proyectos | Todos los derechos reservados</p>
+                <nav class="footer-nav">
+                    <a href="index.html">Inicio</a>
+                    <a href="your-projects.html">Tus Proyectos</a>
+                    <a href="create.html">Crear Proyecto</a>
+                </nav>
+            </div>
+        </footer>
+
+        <script type="module" src="./js/pages/create.js"></script>
+    </div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 
 import { getProjectsQuery, getProjectDetailsById } from '../api/api.js';
-import { renderAllSections } from './ui.js'; 
+import { renderAllSections, renderProjects } from './ui.js'; 
 import { clasifyProjects } from '../utils/helpers.js'; // si querés separar esa lógica
 
 export async function loadProjects(selectedUser, filtros = {}) {
@@ -19,4 +19,17 @@ export async function loadProjects(selectedUser, filtros = {}) {
     const { puedeDecidir, yaParticipo } = clasifyProjects(proyectosParticipaDetallados, selectedUser.id);
 
     renderAllSections(selectedUser, proyectosCreados, puedeDecidir, yaParticipo);
+}
+
+
+export async function loadProjectsGeneral(filtros = {}, container) {
+
+    // aplico filtros
+    const proyectosFiltrados = await getProjectsQuery({...filtros });
+
+    const proyectosDetallados = await Promise.all(
+        proyectosFiltrados.map(p => getProjectDetailsById(p.id))
+    );
+
+    renderProjects(proyectosDetallados, container.id, null);
 }

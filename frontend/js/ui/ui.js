@@ -1,6 +1,7 @@
 ﻿
 import { verDetalle } from './detail.js';
 import { openEditModal } from './modal.js';
+import { addSingleCardClassGeneral } from '../utils/helpers.js';
 
 export const clearContainer = (id) => {
     const el = document.getElementById(id);
@@ -54,7 +55,7 @@ export const renderProjects = (projects, containerId, selectedUser) => {
     }
     clearContainer(containerId);
 
-    const statusTranslations = {'Pending': 'Pendiente', 'Approved': 'Aprobado', 'Rejected': 'Rechazado', 'Observed': 'Observado' };
+    const statusTranslations = { 'Pending': 'Pendiente', 'Approved': 'Aprobado', 'Rejected': 'Rechazado', 'Observed': 'Observado' };
 
     projects.forEach(project => {
         const statusProject = statusTranslations[project.status] || statusTranslations[project.status.name] || 'Desconocido';
@@ -92,6 +93,8 @@ export const renderProjects = (projects, containerId, selectedUser) => {
             container.appendChild(div);
         }
     });
+    addSingleCardClassGeneral();
+    
 };
 
 export const renderOptionList = (selectId, list, labelProp, valueProp) => {

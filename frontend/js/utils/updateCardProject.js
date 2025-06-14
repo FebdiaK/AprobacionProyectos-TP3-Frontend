@@ -10,7 +10,7 @@ export async function updateCardProject(projectToEdit, selectedUser) {
     const card = document.getElementById(`project-card-${projectId}`);
     
     if (card) {
-        const newCard = createProjectCard(updatedProject, selectedUser); 
+        const newCard = createProjectCard(updatedProject, selectedUser);
         card.replaceWith(newCard);
     }
 }

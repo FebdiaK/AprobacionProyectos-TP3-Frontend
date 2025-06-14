@@ -97,11 +97,11 @@ async function onDecisionSubmit(e) {
             statusId,
             observation
         );
+
+        await updateCardProject(selectedProjectId, selectedUser);
         showNotification("Decisión tomada correctamente.", "success", "decision");
-        updateCardProject(selectedProjectId, selectedUser);
 
         verDetalle(selectedUser, selectedProjectId); // recargar detalle
-
 
         setTimeout(() => cerrarModalDecision(), 4000);
 
@@ -127,13 +127,14 @@ async function onEditSubmit(e) {
     const description = descriptionInput || projectToEdit.description;
 
     try {
-        await sendEdit(projectToEdit.id, title, description, durationInput);
+        const res = await sendEdit(projectToEdit.id, title, description, durationInput);
+        if (!res) {
+            await updateCardProject(projectToEdit, selectedUser);
+            showNotification("Edición realizada correctamente.", "success", "edit");
+            addSingleCardClass();
+            setTimeout(() => closeEditModal(), 4000); 
+        }
         
-        updateCardProject(projectToEdit, selectedUser);
-        showNotification("Decisión tomada correctamente.", "success", "edit");
-
-        setTimeout(() => closeEditModal(), 4000); 
-
     } catch (err) {
         showNotification("Error al editar. " + err.message, "error", "edit");
     }

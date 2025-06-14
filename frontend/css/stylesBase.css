@@ -24,6 +24,16 @@ div {
     background-color: rgba(0, 0, 0, 0.05);
 }
 
+.page-container {
+    min-height: 97.5vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+}
+
 .nav {
     display: flex;
     gap: 1rem;
@@ -31,6 +41,8 @@ div {
     padding: 0;
     margin: 0;
 }
+
+
 
 .header {
     display: flex;
@@ -72,10 +84,42 @@ body {
         color: #000;
     }
 
+.title-page-index {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 0rem;
+    padding: 1rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    .title-page-index h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        color: #000;
+    }
+
 .subtitle {
     margin-top: 0.5rem;
     font-size: 1.1rem;
     color: #555;
+}
+
+.filter-section {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+#filtros {
+    width: 30%;
+    padding: 10px;
+}
+#status-select {
+    text-align: center;
 }
 
 #projects-container {
@@ -103,6 +147,16 @@ body {
         transform: translateY(-4px);
         box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
+
+.project-card {
+    max-width: 400px !important;
+}
+
+.single-card {
+    max-width: 500px;
+    width: 90%;
+    margin: 0 auto;
+}
 
 .step {
     background: #9db3c8;
@@ -312,30 +366,6 @@ textarea {
             color: #005fa3;
             text-decoration: underline;
         }
-
-.form-message {
-    text-align: center;
-    margin-top: 20px;
-    font-weight: bold;
-    padding: 12px;
-    border-radius: 6px;
-    font-size: 1rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-    .form-message.success {
-        color: #155724;
-        background-color: #d4edda;
-        border: 1px solid #c3e6cb;
-    }
-
-    .form-message.error {
-        color: #721c24;
-        background-color: #f8d7da;
-        border: 1px solid #f5c6cb;
-    }
 
 .notification {
     display: none;
