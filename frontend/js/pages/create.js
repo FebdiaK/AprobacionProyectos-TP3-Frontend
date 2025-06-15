@@ -1,10 +1,9 @@
 ﻿
-//Criterio 3: el usuario puede generar un nuevo proyecto
-
 import { createProject, getAreas, getTypes, getUsers } from "../api/api.js";
 import { renderOptionList } from "../ui/ui.js";
 import { showNotification } from '../utils/helpers.js';
 
+//Criterio 3: el usuario puede generar un nuevo proyecto
 window.onload = async () => {
 
     const users = await getUsers("user");

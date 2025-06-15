@@ -41,6 +41,8 @@ async function init() {
 }
 
 // === EVENTOS ===
+
+//selección de usuario
 async function onUserChange() {
 
     const userId = document.getElementById("user-select").value;
@@ -111,6 +113,7 @@ async function onDecisionSubmit(e) {
     }
 };
 
+// Criterio 6:  El usuario puede editar un proyecto
 async function onEditSubmit(e) {
     e.preventDefault();
 

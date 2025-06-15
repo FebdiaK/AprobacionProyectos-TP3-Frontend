@@ -60,7 +60,6 @@ export const createProject = async (project) => {
         body: JSON.stringify(project),
     });
     if (!response.ok) {
-        // Intenta leer el mensaje de error que envía el backend
         const { message } = await response.json();
         const error = new Error(message || `Error ${response.status}`);
         error.status = response.status;
@@ -83,7 +82,6 @@ export async function sendDecision(projectId, stepId, userId, statusId, observat
     });
 
     if (!res.ok) {
-        // Intenta leer el mensaje de error que envía el backend
         const { message } = await res.json();
         const error = new Error(message || `Error ${res.status}`);
         error.status = res.status;

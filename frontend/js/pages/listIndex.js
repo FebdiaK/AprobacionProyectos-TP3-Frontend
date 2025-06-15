@@ -33,7 +33,6 @@ async function init() {
         document.getElementById('filter-form').addEventListener('submit', onFilterSubmit);        
         document.getElementById("toggle-filtros").addEventListener("click", toggleFiltros);
 
-
     } catch (error) {
         console.error("Error al obtener proyectos:", error);
         showNotification("Error al obtener los proyectos: "+ error, "error", "general");

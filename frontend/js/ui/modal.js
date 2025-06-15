@@ -1,3 +1,4 @@
+import { formatearFechaArgentina } from "../utils/helpers.js";
 
 export let projectToEdit = null;
 
@@ -33,6 +34,8 @@ export function closeEditModal() {
 
 export const fillModal = (project, selectedUser) => {
 
+    console.log(project);
+
     const modalBody = document.getElementById("modal-body");
 
     const primerPendiente = project.steps.find(s => [1, 4].includes(s.status.id));
@@ -56,10 +59,10 @@ export const fillModal = (project, selectedUser) => {
             <div class="step">
                 <p><strong>Orden:</strong> ${step.stepOrder}</p>
                 <p><strong>Estado:</strong> ${statusStep}</p>
-                <p><strong>Observaciones:</strong> ${step.observations || 'Pendiente'}</p>
-                <p><strong>Fecha de decisión:</strong> ${step.decisionDate || 'Pendiente'}</p>
+                <p><strong>Observaciones:</strong> ${step.observations || '( - ) '}</p>
+                <p><strong>Fecha de decisión:</strong> ${formatearFechaArgentina(step.decisionDate)|| '( - )'}</p>
                 <p><strong>Rol aprobador:</strong> ${step.approverRole.name}</p>
-                <p><strong>Usuario aprobador:</strong> ${step.approverUser?.name || 'No asignado'} (${step.approverUser?.email || '-'})</p>
+                <p><strong>Usuario aprobador:</strong> ${step.approverUser?.name || 'No asignado todavía'} (${step.approverUser?.email || '-'})</p>
                 ${accionHtml}
             </div>
         `;
@@ -74,6 +77,7 @@ export const fillModal = (project, selectedUser) => {
             <p><strong>Tipo:</strong> ${project.type.name}</p>
             <p><strong>Estado:</strong> ${statusProject}</p>
             <p><strong>Duración estimada:</strong> ${project.duration} dias</p>
+            <p><strong>Fecha de creación:</strong> ${formatearFechaArgentina(project.createdAt) }</p>
             <p><strong>Costo estimado:</strong> $${project.amount}</p>
             <p><strong>Usuario creador: </strong> ${project.user.name} (${project.user.email})<p>
             <p><strong>Rol:</strong> ${project.user.role.name}</p>

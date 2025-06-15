@@ -1,7 +1,7 @@
 ﻿
 import { verDetalle } from './detail.js';
 import { openEditModal } from './modal.js';
-import { addSingleCardClassGeneral } from '../utils/helpers.js';
+import { addSingleCardClassGeneral  } from '../utils/helpers.js';
 
 export const clearContainer = (id) => {
     const el = document.getElementById(id);
@@ -38,7 +38,6 @@ function renderSection(titulo, proyectos, selectedUser) {
     const sectionId = titulo.toLowerCase().replace(/\s+/g, '-') + '-content'; // ID unico basado en el titulo
     content.id = sectionId;
 
-
     section.appendChild(header);
     section.appendChild(content);
     document.getElementById('projects-container').appendChild(section);
@@ -54,6 +53,13 @@ export const renderProjects = (projects, containerId, selectedUser) => {
         return;
     }
     clearContainer(containerId);
+
+    if (projects.length === 0) {
+        const noProjectsMessage = document.createElement("p");
+        noProjectsMessage.textContent = "No hay proyectos.";
+        container.appendChild(noProjectsMessage);
+        return;
+    }
 
     const statusTranslations = { 'Pending': 'Pendiente', 'Approved': 'Aprobado', 'Rejected': 'Rechazado', 'Observed': 'Observado' };
 
@@ -105,18 +111,11 @@ export const renderOptionList = (selectId, list, labelProp, valueProp) => {
         select.appendChild(option);
     });
 };
-
-export const toggleVisibility = (id) => {
-    const el = document.getElementById(id);
-    el.style.display = el.style.display === 'none' ? 'block' : 'none';
-};
-
 function toggleSection(button) {
     const content = button.parentElement.nextElementSibling;
-    const visible = content.style.display !== 'none';
-
-    content.style.display = visible ? 'none' : 'block';
-    button.textContent = visible ? '+' : '−';
+    const isHidden = content.classList.contains('hidden');
+    content.classList.toggle('hidden');
+    button.textContent = isHidden ? '−' : '+';
 }
 export function toggleFiltros() {
     const filtros = document.getElementById('filtros');
