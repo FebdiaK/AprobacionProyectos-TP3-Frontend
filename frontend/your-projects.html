@@ -117,13 +117,13 @@
                     <form id="edit-form">
 
                         <label for="edit-title">Nuevo titulo:</label>
-                        <input type="text" id="edit-title" required />
+                        <input type="text" id="edit-title" placeholder="Título del proyecto" required title="Solo letras y números"/>
 
                         <label for="edit-description">Nueva descripción:</label>
-                        <textarea id="edit-description" required></textarea>
+                        <textarea id="edit-description" placeholder="Nueva descripción" required title="Ingrese la nueva descripción"></textarea>
 
                         <label for="edit-duration">Nueva duración:</label>
-                        <input type="number" id="edit-duration" required />
+                        <input type="number" id="edit-duration" placeholder="Nueva duración en días" min="1" step="1" required />
 
                         <button type="submit">Guardar Cambios</button>
 

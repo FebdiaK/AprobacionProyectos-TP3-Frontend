@@ -62,7 +62,7 @@ export const fillModal = (project, selectedUser) => {
                 <p><strong>Observaciones:</strong> ${step.observations || '( - ) '}</p>
                 <p><strong>Fecha de decisión:</strong> ${formatearFechaArgentina(step.decisionDate)|| '( - )'}</p>
                 <p><strong>Rol aprobador:</strong> ${step.approverRole.name}</p>
-                <p><strong>Usuario aprobador:</strong> ${step.approverUser?.name || 'No asignado todavía'} (${step.approverUser?.email || '-'})</p>
+                <p><strong>Usuario aprobador:</strong> ${step.approverUser?.name || '( - )'} ${step.approverUser?.email || ''}</p>
                 ${accionHtml}
             </div>
         `;

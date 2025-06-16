@@ -102,7 +102,7 @@ export async function sendEdit(projectId, titulo, descripcion, duracion) {
     });
 
     if (!res.ok) {
-        // Intenta leer el mensaje de error que envía el backend
+        // leo el mensaje de error que envía el backend
         const { message } = await res.json();
         const error = new Error(message || `Error ${res.status}`);
         error.status = res.status;

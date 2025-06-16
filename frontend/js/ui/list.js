@@ -3,6 +3,7 @@ import { getProjectsQuery, getProjectDetailsById } from '../api/api.js';
 import { renderAllSections, renderProjects } from './ui.js'; 
 import { clasifyProjects } from '../utils/helpers.js'; 
 
+//para mostrar todos los proyectos separados por secciones 
 export async function loadProjects(selectedUser, filtros = {}) {
 
     // proyectos creados

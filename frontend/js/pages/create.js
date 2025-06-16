@@ -1,78 +1,15 @@
 ﻿
-import { createProject, getAreas, getTypes, getUsers } from "../api/api.js";
-import { renderOptionList } from "../ui/ui.js";
-import { showNotification } from '../utils/helpers.js';
+import { fillSelectOptions, setupFormValidations, setupFormSubmission } from '../features/createForm.js';
 
 //Criterio 3: el usuario puede generar un nuevo proyecto
 window.onload = async () => {
 
-    const users = await getUsers("user");
-    const areas = await getAreas("area");
-    const types = await getTypes("projecttype");
+    await initializeForm();
 
-    renderOptionList("user-select", users, "name", "id");
-    renderOptionList("area-select", areas, "name", "id");
-    renderOptionList("type-select", types, "name", "id");
-
-    const numericInputs = document.querySelectorAll('input[type="number"]');
-    numericInputs.forEach(input => {
-        input.addEventListener("input", function () {
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
-    });
-
-    const descriptionInput = document.getElementById("description");
-    descriptionInput.addEventListener("input", () => {
-        descriptionInput.style.height = "auto"; // reset height
-        descriptionInput.style.height = Math.min(descriptionInput.scrollHeight, 96) + "px";
-    });
-
-    const titleInput = document.getElementById("title");
-    titleInput.addEventListener("input", (e) => {
-        const regex = /[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9 ]+/g;
-        if (regex.test(titleInput.value)) {
-            titleInput.value = titleInput.value.replace(regex, "");
-        }
-    });
 };
 
-document.getElementById("project-form").addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const titleInput = document.getElementById("title");
-    let val = titleInput.value.trim();
-
-    const descriptionInput = document.getElementById("description");
-    let desc = descriptionInput.value.trim();
-
-    if (val.length > 0) {
-        titleInput.value = val.charAt(0).toUpperCase() + val.slice(1);
-        val = titleInput.value;
-    }
-    if (desc.length > 0) {
-        descriptionInput.value = desc.charAt(0).toUpperCase() + desc.slice(1);
-        desc = descriptionInput.value;
-    }
-    if (desc && desc.length < 10) { showNotification("La descripción mínima es de 10 caracteres.", "alert", "create"); return; }
-
-    const proyecto = {
-        title: val,
-        description: desc,
-        amount: parseFloat(document.getElementById("amount").value),
-        duration: parseInt(document.getElementById("duration").value),
-        area: parseInt(document.getElementById("area-select").value),
-        user: parseInt(document.getElementById("user-select").value),
-        type: parseInt(document.getElementById("type-select").value)
-    };
-
-    try {
-        await createProject(proyecto);
-        showNotification("Proyecto creado con éxito. Redirigiendo al listado..", "success", "create");
-        setTimeout(() => window.location.href = "index.html", 4000);
-
-    } catch (error) {
-        showNotification("Error al crear proyecto: " + error.message, "error", "create");
-    }
-});
-
-
+async function initializeForm() {
+    await fillSelectOptions();
+    setupFormValidations();
+    setupFormSubmission();
+}
