@@ -40,13 +40,13 @@ frontend/
 ├── start-frontend.bat           # Script para levantar el servidor local
 ├── index.html                   # Página principal con listado de proyectos
 ├── create.html                  # Formulario para crear proyecto
-├── your-projects.html           # Página de proyectos filtrados por usuario
+├── yourProjects.html           # Página de proyectos filtrados por usuario
 │
 ├── css/
 │   ├── base.css                 # Tipografía, colores y estilos generales
 │   ├── layout.css               # Header, footer, containers, distribución
 │   ├── components.css           # Modales, botones, formularios, etc.
-│   └── your-projects.css        # Estilos específicos de la sección de usuario
+│   └── yourProjects.css        # Estilos específicos de la sección de usuario
 │
 ├── js/
 │   ├── api/
