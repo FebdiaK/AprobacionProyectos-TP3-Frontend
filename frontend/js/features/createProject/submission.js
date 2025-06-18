@@ -1,37 +1,7 @@
 
-import { createProject, getAreas, getTypes, getUsers } from "../api/api.js";
-import { renderOptionList } from "../ui/ui.js";
-import { showNotification, capitalizeFirstLetter } from '../utils/helpers.js';
-import { allowOnlyNumbers, autoResizeTextarea, validateTitleInput, isValidTitle } from '../utils/formValidators.js';
-
-
-export async function fillSelectOptions() {
-    try {
-        const [users, areas, types] = await Promise.all([
-            getUsers("user"),
-            getAreas("area"),
-            getTypes("projecttype"),
-        ]);
-
-        renderOptionList("user-select", users, "name", "id");
-        renderOptionList("area-select", areas, "name", "id");
-        renderOptionList("type-select", types, "name", "id");
-    } catch (error) {
-        showNotification("Error al cargar datos del formulario: " + error.message, "error", "create");
-    }
-}
-
-export function setupFormValidations() {
-    document.querySelectorAll('input[type="number"]').forEach(input =>
-        input.addEventListener("input", () => allowOnlyNumbers(input))
-    );
-
-    const descriptionInput = document.getElementById("description");
-    descriptionInput.addEventListener("input", () => autoResizeTextarea(descriptionInput, 96));
-
-    const titleInput = document.getElementById("title");
-    titleInput.addEventListener("input", () => validateTitleInput(titleInput));
-}
+import { createProject } from "../../api/api.js";
+import { showNotification, capitalizeFirstLetter } from "../../utils/helpers.js";
+import { isValidTitle } from "../../utils/formValidators.js";
 
 export function setupFormSubmission() {
     const form = document.getElementById("project-form");
@@ -55,7 +25,6 @@ export function setupFormSubmission() {
             await createProject(proyecto);
             showNotification("Proyecto creado con éxito. Redirigiendo al listado...", "success", "create");
             setTimeout(() => window.location.href = "index.html", 4000);
-
         } catch (error) {
             showNotification("Error al crear proyecto: " + error.message, "error", "create");
             btn.disabled = false;
@@ -80,7 +49,7 @@ function buildProjectFromForm() {
         showNotification("La descripción mínima es de 10 caracteres.", "alert", "create");
         return null;
     }
-    // seteo a mayuscula al input
+
     titleInput.value = title;
     descriptionInput.value = description;
 

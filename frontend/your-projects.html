@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Tus Proyectos</title>
-    <link rel="stylesheet" href="./css/stylesBase.css"> 
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/components.css">
     <link rel="stylesheet" href="./css/your-projects.css">
 </head>
 <body>
@@ -27,14 +29,12 @@
         <main class="content">
 
             <!--  Titulo -->
-
             <div class="title-page-yp">
                 <h1>Tus Proyectos</h1>
                 <p class="subtitle">Acá podés ver y administrar tus proyectos.</p>
             </div>
 
             <!-- Usuario -->
-
             <div class="user-select-wrapper">
                 <label for="user-select">Seleccionar usuario:</label>
                 <select id="user-select">
@@ -46,7 +46,6 @@
             </div>
 
             <!--  Filtros -->
-
             <div class="filter-section">
 
                 <button id="toggle-filtros">Mostrar/Ocultar Filtros</button>
@@ -66,11 +65,9 @@
             </div>
 
             <!-- Contenedor principal -->
-
             <div id="projects-container" class="container-sections"></div>
 
             <!-- Modal de detalle -->
-
             <div id="modal" class="modal">
                 <div class="modal-content">
                     <span class="close-button">&times;</span>
@@ -79,7 +76,6 @@
             </div>
 
             <!-- Modal para decidir -->
-
             <div id="modal-decision" class="modal">
                 <div class="modal-content">
                     <span class="close-button-decision">&times;</span>
@@ -90,7 +86,7 @@
                         <input type="hidden" id="stepId" name="stepId" />
 
                         <label>Estado:</label>
-                        <select id="status" name="status" required>
+                        <select id="status" name="status" required title="Seleccione un estado para este paso">
                             <option value="">Seleccione</option>
                             <option value="2">Aprobado</option>
                             <option value="3">Rechazado</option>
@@ -98,7 +94,7 @@
                         </select><br />
 
                         <label>Observación:</label>
-                        <textarea id="observation" name="observation" rows="4" cols="50"></textarea>
+                        <textarea id="observation" placeholder="Ingrese una observación (opcional)" name="observation" rows="4" cols="50"></textarea>
                         <br />
                         <button type="submit">Confirmar decision</button>
                     </form>
@@ -107,7 +103,6 @@
             </div>
 
             <!-- Modal para editar -->
-
             <div id="edit-modal" class="modal">
                 <div class="modal-content">
                     <span class="close-button-edit">&times;</span>
@@ -116,7 +111,7 @@
 
                     <form id="edit-form">
 
-                        <label for="edit-title">Nuevo titulo:</label>
+                        <label for="edit-title">Nuevo título:</label>
                         <input type="text" id="edit-title" placeholder="Título del proyecto" required title="Solo letras y números"/>
 
                         <label for="edit-description">Nueva descripción:</label>
@@ -146,7 +141,7 @@
             </div>
         </footer>
 
-        <script type="module" src="./js/pages/your-projects.js"></script>
+        <script type="module" src="./js/features/yourProjects/your-projectsIndex.js"></script>
     </div>
 </body>
 </html>

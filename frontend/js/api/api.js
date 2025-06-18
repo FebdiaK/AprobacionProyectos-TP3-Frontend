@@ -1,7 +1,7 @@
 
 const API_BASE = "https://localhost:7017/api";
 
-export const getProjects = async () => {
+export const getProjects = async () => { //obtener los proyectos sin filtros aplicados
 
     try {
         const response = await fetch(`${API_BASE}/project`);
@@ -16,7 +16,7 @@ export const getProjects = async () => {
     return await response.json();
 };
 
-export const getProjectsQuery = async (filters) => {
+export const getProjectsQuery = async (filters) => { //pasandole filtros
     const query = new URLSearchParams(filters).toString();
     const res = await fetch(`${API_BASE}/project?${query}`);
     return await res.json();

@@ -35,7 +35,6 @@ export function addSingleCardClass() {
         const cards = section.querySelectorAll('.project-card');
         cards.forEach(card => card.classList.remove('single-card')); // limpiar clases anteriores
         if (cards.length === 1) {
-            console.log("Se aplica single-card a", cards[0]);
             cards[0].classList.add('single-card');
         }
     });
@@ -65,7 +64,6 @@ export function translateStatus(statusName) {
 
 export function formatearFechaArgentina(fechaIso) {
 
-    console.log(fechaIso);
     if (!fechaIso) return '( - )';
     const fecha = new Date(fechaIso);
 

@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Crear Proyecto</title>
-    <link rel="stylesheet" href="./css/stylesBase.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/components.css">
 </head>
 <body>
     <div class="page-container">
@@ -24,15 +26,14 @@
         </div>
 
         <main class="content">
-            <!--  Titulo -->
 
+            <!--  Titulo -->
             <div class="title-page">
                 <h1>Crear nuevo proyecto</h1>
                 <p class="subtitle">Completá los datos requeridos para registrar una nueva propuesta.</p>
             </div>
 
             <!--  Formulario para crear -->
-
             <form id="project-form">
 
                 <input type="text" id="title" placeholder="Título del proyecto" required pattern="[A-Za-zÁÉÍÓÚÑáéíóúñ0-9 ]+" title="Solo letras y números" />
@@ -41,17 +42,17 @@
                 <input type="number" id="duration" placeholder="Duración en días" min="1" step="1" required />
 
                 <label for="user-select">Usuario creador:</label>
-                <select id="user-select" required>
+                <select id="user-select" required title="Seleccioná un usuario">
                     <option value="">-- Seleccionar --</option>
                 </select>
 
                 <label for="area-select">Área del proyecto:</label>
-                <select id="area-select" required>
+                <select id="area-select" required title="Seleccioná un área">
                     <option value="">-- Seleccionar --</option>
                 </select>
 
                 <label for="type-select">Tipo de proyecto:</label>
-                <select id="type-select" required>
+                <select id="type-select" required title="Seleccioná un tipo de proyecto">
                     <option value="">-- Seleccionar --</option>
                 </select>
 
@@ -60,6 +61,7 @@
                 <div id="notification-create" class="notification"></div>
             </form>
         </main>
+
         <!--  Footer -->
         <footer class="footer">
             <div class="footer-content">
@@ -72,7 +74,7 @@
             </div>
         </footer>
 
-        <script type="module" src="./js/pages/create.js"></script>
+        <script type="module" src="./js/features/createProject/createIndex.js"></script>
     </div>
 </body>
 </html>

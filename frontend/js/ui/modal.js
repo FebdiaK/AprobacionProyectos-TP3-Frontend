@@ -34,12 +34,11 @@ export function closeEditModal() {
 
 export const fillModal = (project, selectedUser) => {
 
-    console.log(project);
-
     const modalBody = document.getElementById("modal-body");
 
     const primerPendiente = project.steps.find(s => [1, 4].includes(s.status.id));
     const puedeDecidir = primerPendiente && primerPendiente.approverRole?.id === selectedUser?.role.id;
+
     const statusLabels = { 1: 'Pendiente', 2: 'Aprobado', 3: 'Rechazado', 4: 'En observacion' };
     const statusProject = statusLabels[project.status.id] || 'Desconocido';
 

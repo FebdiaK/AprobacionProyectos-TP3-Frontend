@@ -1,9 +1,9 @@
 
-import { getProjects, getStatuses } from "../api/api.js";
-import { renderProjects, toggleFiltros, renderOptionList } from "../ui/ui.js";
-import { closeModal } from "../ui/modal.js";
-import { loadProjectsGeneral } from '../ui/list.js';
-import { showNotification, translateStatus, addSingleCardClassGeneral } from '../utils/helpers.js';
+import { getProjects, getStatuses } from "../../api/api.js";
+import { renderProjects, toggleFiltros, renderOptionList } from "../../ui/ui.js";
+import { closeModal } from "../../ui/modal.js";
+import { loadProjectsGeneral } from '../../ui/list.js';
+import { showNotification, translateStatus, addSingleCardClassGeneral } from '../../utils/helpers.js';
 
 //cargo la lista de proyectos
 export async function initializeProjectList() {
@@ -25,7 +25,9 @@ export async function initializeProjectList() {
 async function loadInitialProjects(container) {
     const projects = await getProjects();
     if (!projects || projects.length === 0) {
-        showNotification("No se encontraron proyectos.", "alert", "general");
+        const noProjectsMessage = document.createElement("p");
+        noProjectsMessage.textContent = "No hay proyectos. Cree uno.";
+        container.appendChild(noProjectsMessage);
         return;
     }
     renderProjects(projects, container.id, null);

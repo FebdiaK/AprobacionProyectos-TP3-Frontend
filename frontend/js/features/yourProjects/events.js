@@ -1,79 +1,35 @@
-
-import { getUsers, getStatuses, sendDecision, sendEdit } from '../api/api.js';
-import { renderOptionList, clearContainer, toggleFiltros } from '../ui/ui.js';
-import { abrirModalDecision, cerrarModalDecision, closeModal, closeEditModal, projectToEdit } from '../ui/modal.js';
-import { verDetalle, selectedProjectId } from '../ui/detail.js';
-import { loadProjects } from '../ui/list.js';
-import { updateCardProject } from '../utils/updateCardProject.js';
-import { showNotification, translateStatus, addSingleCardClass } from '../utils/helpers.js';
-import { allowOnlyNumbers, autoResizeTextarea, validateTitleInput, isValidTitle, isValidDuration, isValidDescription, formToFilters } from '../utils/formValidators.js';
-
-
-const userMap = new Map();
-let selectedUser = null;
-
-export async function initializeYourProjects() {
-    await cargarOpciones();
-    bindEventListeners();
-}
-
-async function cargarOpciones() {
-
-    const users = await getUsers();
-    users.forEach(u => userMap.set(u.id.toString(), u));
-    renderOptionList("user-select", users, "name", "id");
-
-    const statuses = await getStatuses();
-    const translatedStatuses = statuses.map(status => ({ ...status, name: translateStatus(status.name) }));
-    renderOptionList("status-select", translatedStatuses, "name", "id");
-
-}
-
-function bindEventListeners() {
-
-    document.getElementById('user-select').addEventListener('change', onUserChange);
-    document.getElementById('filter-form').addEventListener('submit', onFilterSubmit);
-    document.getElementById('decision-form').addEventListener('submit', onDecisionSubmit);
-    document.getElementById('edit-form').addEventListener('submit', onEditSubmit);
-    document.getElementById('toggle-filtros').addEventListener('click', toggleFiltros);
-
-    const closeModalBtns = [
-        ['.close-button', closeModal],
-        ['.close-button-decision', cerrarModalDecision],
-        ['.close-button-edit', closeEditModal]
-    ];
-    closeModalBtns.forEach(([selector, handler]) => {
-        const btn = document.querySelector(selector);
-        if (btn) btn.addEventListener('click', handler);
-    });
-
-    setupEditFormValidations();
-   
-    window.abrirModalDecision = abrirModalDecision;  // para que los modales funcionen con botones fuera de su scope
-}
-
+import { clearContainer } from '../../ui/ui.js';
+import { showNotification, addSingleCardClass } from '../../utils/helpers.js';
+import { loadProjects } from '../../ui/list.js';
+import { verDetalle, selectedProjectId } from '../../ui/detail.js';
+import { sendDecision, sendEdit } from '../../api/api.js';
+import { updateCardProject } from '../../utils/updateCardProject.js';
+import { cerrarModalDecision, closeEditModal, projectToEdit } from '../../ui/modal.js';
+import { formToFilters, isValidTitle, isValidDescription, isValidDuration } from '../../utils/formValidators.js';
+import { userMap, setSelectedUser, selectedUser } from './state.js';
 
 // ========== EVENTOS ==========
 
 //Criterio 2: El usuario debe poder ver la informacion completa de los proyectos.
-async function onUserChange() {
+export async function onUserChange() {
     const userId = document.getElementById("user-select").value;
-    selectedUser = userMap.get(userId) || null;
+    const user = userMap.get(userId) || null;
+    setSelectedUser(user);
     clearContainer('projects-container');
 
     const roleContainer = document.getElementById("user-role");
-    if (!selectedUser) {
+    if (!user) {
         roleContainer.innerHTML = '';
         showNotification("Selecciona un usuario para ver sus proyectos.", "alert", "user");
         return;
     }
-    roleContainer.innerHTML = `<p><strong>Rol:</strong> ${selectedUser.role?.name || 'Rol desconocido'}</p>`;
-    await loadProjects(selectedUser, {});
+    roleContainer.innerHTML = `<p><strong>Rol:</strong> ${user.role?.name || 'Rol desconocido'}</p>`;
+    await loadProjects(user, {});
     addSingleCardClass();
 }
 
 //Criterio 4: El usuario puede realizar búsquedas de sus proyectos además realizar búsquedas y filtrarlos.
-async function onFilterSubmit(e) {
+export async function onFilterSubmit(e) {
     e.preventDefault();
     if (!selectedUser) {
         showNotification("Selecciona un usuario primero.", "error", "filtro");
@@ -81,13 +37,12 @@ async function onFilterSubmit(e) {
     }
 
     const filtros = formToFilters(e.target);
-
     await loadProjects(selectedUser, filtros);
     addSingleCardClass();
 }
 
 //Criterio 5: El usuario puede tomar una decisión sobre la aprobación de un proyecto
-async function onDecisionSubmit(e) {
+export async function onDecisionSubmit(e) {
     e.preventDefault();
     const btn = e.submitter;
     btn.disabled = true;
@@ -105,14 +60,7 @@ async function onDecisionSubmit(e) {
     }
 
     try {
-        await sendDecision(
-            selectedProjectId,
-            stepId,
-            parseInt(selectedUser.id),
-            statusId,
-            observation
-        );
-
+        await sendDecision(selectedProjectId, stepId, parseInt(selectedUser.id), statusId, observation);
         await updateCardProject(selectedProjectId, selectedUser);
         showNotification("Decisión tomada correctamente.", "success", "decision");
         verDetalle(selectedUser, selectedProjectId);
@@ -122,7 +70,6 @@ async function onDecisionSubmit(e) {
             btn.classList.remove('btn-disabled');
         }, 4000);
     } catch (err) {
-        console.error(err);
         showNotification("Error al decidir: " + err.message, "error", "decision");
         btn.disabled = false;
         btn.classList.remove('btn-disabled');
@@ -130,7 +77,7 @@ async function onDecisionSubmit(e) {
 }
 
 // Criterio 6:  El usuario puede editar un proyecto.
-async function onEditSubmit(e) {
+export async function onEditSubmit(e) {
     e.preventDefault();
     const btn = e.submitter; // botón que disparó el submit
     btn.disabled = true;     // lo deshabilitamos
@@ -144,7 +91,7 @@ async function onEditSubmit(e) {
         showNotification("El título debe tener al menos 5 caracteres.", "alert", "edit");
         btn.disabled = false;
         btn.classList.remove('btn-disabled');
-        return null;
+        return;
     }
 
     if (!isValidDescription(descriptionValue)) {
@@ -182,23 +129,3 @@ async function onEditSubmit(e) {
         btn.classList.remove('btn-disabled');
     }
 }
-
-
-function setupEditFormValidations() {
-    const titleInput = document.getElementById("edit-title");
-    const descriptionInput = document.getElementById("edit-description");
-    const durationInput = document.getElementById("edit-duration");
-
-    if (titleInput) {
-        titleInput.addEventListener("input", () => validateTitleInput(titleInput));
-    }
-
-    if (descriptionInput) {
-        descriptionInput.addEventListener("input", () => autoResizeTextarea(descriptionInput, 96));
-    }
-
-    if (durationInput) {
-        durationInput.addEventListener("input", () => allowOnlyNumbers(durationInput));
-    }
-}
-

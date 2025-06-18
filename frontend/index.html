@@ -2,8 +2,10 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Proyectos - Aprobación</title>
-    <link rel="stylesheet" href="./css/stylesBase.css">
+    <title>Aprobación de Proyectos</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/components.css">
 </head>
 <body>
     <div class="page-container">
@@ -22,9 +24,10 @@
                 </ul>
             </header>
         </div>
-        <main class="content">
-            <!--  Titulo -->
 
+        <main class="content">
+
+            <!--  Titulo -->
             <div class="title-page-index">
                 <h1>Listado de Proyectos</h1>
                 <p class="subtitle">Acá podés ver la información completa de todos los proyectos que se hayan creado.</p>
@@ -32,7 +35,6 @@
             <div id="notification-general" class="notification"></div>
 
             <!--  Filtros -->
-
             <div class="filter-section">
 
                 <button id="toggle-filtros">Mostrar/Ocultar Filtros</button>
@@ -52,11 +54,9 @@
             </div>
 
             <!-- Contenedor principal -->
-
             <div id="projects-container"></div>
 
             <!--  Modal de detalles -->
-
             <div id="modal" class="modal">
                 <div class="modal-content">
                     <span class="close-button">&times;</span>
@@ -65,8 +65,8 @@
                 </div>
             </div>
         </main>
-        <!-- footer -->
 
+        <!-- footer -->
         <footer class="footer">
             <div class="footer-content">
                 <p>&copy; 2025 Aprobación de Proyectos | Todos los derechos reservados</p>
@@ -77,7 +77,8 @@
                 </nav>
             </div>
         </footer>
-        <script type="module" src="./js/pages/listIndex.js"></script>
+
+        <script type="module" src="./js/features/listProjects/listIndex.js"></script>
     </div>
 </body>
 </html>
