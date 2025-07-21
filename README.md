@@ -4,10 +4,8 @@
 Este proyecto es una aplicación web frontend desarrollada con HTML, CSS y JavaScript puro, como parte del Trabajo Práctico Parte 3 de la materia "Proyecto de Software".
 Consume los endpoints de la API RESTful desarrollada en la Parte 2 (TP2) para permitir la visualización, creación, edición, filtrado y aprobación de propuestas de proyectos por parte de los usuarios.
 Su diseño apunta a una buena experiencia de usuario (UX) y una interfaz clara y accesible (UI).
- - Link: 
-```
-https://febdiak.github.io/AprobacionProyectos-TP3-Frontend/
-```
+ - Link: https://febdiak.github.io/AprobacionProyectos-TP3-Frontend/
+
 ---
 
 ## Características
