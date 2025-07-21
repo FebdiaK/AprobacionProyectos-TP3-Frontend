@@ -5,6 +5,7 @@ Este proyecto es una aplicación web frontend desarrollada con HTML, CSS y JavaS
 Consume los endpoints de la API RESTful desarrollada en la Parte 2 (TP2) para permitir la visualización, creación, edición, filtrado y aprobación de propuestas de proyectos por parte de los usuarios.
 Su diseño apunta a una buena experiencia de usuario (UX) y una interfaz clara y accesible (UI).
  - Link: https://febdiak.github.io/AprobacionProyectos-TP3-Frontend/
+ - Backend: https://github.com/FebdiaK/AprobacionProyectos-TP2-APIRESTful
 
 ---
 
@@ -36,7 +37,7 @@ La aplicación cumple con los criterios de aceptación definidos en la consigna:
 El proyecto está organizado con una estructura modular para mantener un código claro, escalable y mantenible:
 
 ```
-frontend/
+docs/
 │
 ├── start-frontend.bat           # Script para levantar el servidor local
 ├── index.html                   # Página principal con listado de proyectos
